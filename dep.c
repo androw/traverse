@@ -2,7 +2,8 @@
 
 
 int depV(dalle grid[10][10], int x, int y, int i) {
-	//if (    ((i == 1) && (grid[x+1][y-1].border == 1) && (grid[x][y].joueur =! grid[x+1][y-1].ajoueur)) || 
+	if (    
+	//	((i == 1) && (grid[x+1][y-1].border == 1) && (grid[x][y].joueur =! grid[x+1][y-1].ajoueur)) || 
 	//	((i == 2) && (grid[x+1][y].border == 1) && (grid[x][y].joueur =! grid[x+1][y].ajoueur)) || 
 	//	((i == 3) && (grid[x+1][y+1].border == 1) && (grid[x][y].joueur =! grid[x+1][y+1].ajoueur)) || 
 	//	((i == 4) && (grid[x][y-1].border == 1)&& (grid[x][y].joueur =! grid[x][y-1].ajoueur)) || 
@@ -10,10 +11,10 @@ int depV(dalle grid[10][10], int x, int y, int i) {
 	//	((i == 7) && (grid[x-1][y-1].border == 1)&& (grid[x][y].joueur =! grid[x-1][y-1].ajoueur)) || 
 	//	((i == 8) && (grid[x-1][y].border == 1) && (grid[x][y].joueur =! grid[x-1][y].ajoueur)) || 
 	//	((i == 9) && (grid[x-1][y+1].border == 1)&& (grid[x][y].joueur =! grid[x-1][y+1].ajoueur))) {
-	//
-	//return 0; //Bordure
+	0) {
+	return 0; //Bordure
 	
-	if  (    ((i == 1) && ((x == 9) || (y == 0))) || 
+	}else if  (    ((i == 1) && ((x == 9) || (y == 0))) || 
 		       ((i == 2) && (x == 9)) || 
 		       ((i == 3) && ((x == 9) || (y == 9))) || 
 		       ((i == 4) && (y == 0)) || 
