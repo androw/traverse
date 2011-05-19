@@ -63,20 +63,26 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 	else if (rx < 0 || rx >9 || ry >9 || ry < 0) {
 		return 0;
 	}
-	else if (grid[rx][ry].joueur != 0) {
+	else if (grid[rx][ry].joueur != 0 && x != rx && y != ry) {
 		return 0;
 	}
-	else if (rx == yy && ry ==yy) {
+	else if (rx == xx && ry == yy) {
 		return 1;
 	}
+	else if (grid[rx][ry].pass == 1) {
+                return 0;
+        }
 	else { //return 0;
-		return ((sautValide(grid, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0)) || (sautValide(grid, x, y, rx+2,ry,xx,yy) && (grid[x][y].pion->down) && (grid[rx+1][ry].joueur != 0)) || (sautValide(grid, x, y, rx+2,ry+2,xx,yy) && (grid[x][y].pion->diagdownright) && (grid[rx+1][ry+1].joueur != 0)) || (sautValide(grid, x, y, rx,ry-1,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0)) || (sautValide(grid, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0)));
+		grid[rx][ry].pass = 1;
+		return ((sautValide(grid, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0)) || 
+(sautValide(grid, x, y, rx+2,ry,xx,yy) && (grid[x][y].pion->down) && (grid[rx+1][ry].joueur != 0)) || (sautValide(grid, x, y, rx+2,ry+2,xx,yy) && (grid[x][y].pion->diagdownright) && (grid[rx+1][ry+1].joueur != 0)) || (sautValide(grid, x, y, rx,ry-2,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0)) || (sautValide(grid, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0)));
 	}
 }
 
 int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
 	if (sautValide(grid,x,y,x,y,xx,yy)) {
 		deplacement (grid, x, y, xx, yy);
+		reset(grid);
 		return 1;
 	}
 	//printf("%i\n", grid[0][1].joueur);
@@ -88,13 +94,22 @@ int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
 		(depV(grid,x,y,7) && xx==x-1 && yy==y-1) || 
 		(depV(grid,x,y,8) && xx==x-1 && yy==y) || 
 		(depV(grid,x,y,9) && xx==x-1 && yy==y+1)) {
-	deplacement (grid, x, y, xx, yy);
-	return 1;
+		reset(grid);
+		deplacement (grid, x, y, xx, yy);
+		return 1;
 	}
-	else return 0;
+	else {
+	reset(grid);
+	return 0;
+	}
 }
 			 
-
-
-
-
+void reset(dalle grid[10][10]) {
+	int i;
+	int j;
+	for (i = 0; i<10; i++) {
+		for (j = 0; j<10; j++) {
+			grid[i][j].pass = 0;
+		}
+	}
+}

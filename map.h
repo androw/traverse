@@ -12,6 +12,7 @@ typedef struct {
 	int djoueur;
 	int ajoueur;
 	int joueur;
+	int pass;
 } dalle;
 
 

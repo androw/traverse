@@ -6,3 +6,5 @@ pion.o: pion.c pion.h
 	gcc -Wall -c pion.c
 dep.o: map.o dep.c dep.h
 	gcc -Wall -c dep.c
+clean:
+	rm -R *.o main
