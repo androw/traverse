@@ -8,6 +8,7 @@ void  createGrid(dalle grid[10][10]){
 			grid[i][j].color = (i+j)%2;
 			grid[i][j].joueur = 0;
 			grid[i][j].pion = NULL;
+			grid[i][j].pass = 0;
 			if ((i == 0) || (i == 9) || (j == 0) || (j == 9)) {
 				grid[i][j].border = 1;
 			} else {

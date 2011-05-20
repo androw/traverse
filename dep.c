@@ -2,34 +2,34 @@
 
 
 int depV(dalle grid[10][10], int x, int y, int i) {
-	if (
-		((i == 1) && (grid[x+1][y-1].border == 1) && (grid[x][y].joueur != grid[x+1][y-1].ajoueur)) ||
-		((i == 2) && (grid[x+1][y].border == 1) && (grid[x][y].joueur != grid[x+1][y].ajoueur)) ||
-		((i == 3) && (grid[x+1][y+1].border == 1) && (grid[x][y].joueur != grid[x+1][y+1].ajoueur)) ||
-		((i == 4) && (grid[x][y-1].border == 1)&& (grid[x][y].joueur != grid[x][y-1].ajoueur)) ||
-		((i == 6) && (grid[x][y+1].border == 1)&& (grid[x][y].joueur != grid[x][y+1].ajoueur)) ||
-		((i == 7) && (grid[x-1][y-1].border == 1)&& (grid[x][y].joueur != grid[x-1][y-1].ajoueur)) ||
-		((i == 8) && (grid[x-1][y].border == 1) && (grid[x][y].joueur != grid[x-1][y].ajoueur)) ||
+	if (   
+		((i == 1) && (grid[x+1][y-1].border == 1) && (grid[x][y].joueur != grid[x+1][y-1].ajoueur)) || 
+		((i == 2) && (grid[x+1][y].border == 1) && (grid[x][y].joueur != grid[x+1][y].ajoueur)) || 
+		((i == 3) && (grid[x+1][y+1].border == 1) && (grid[x][y].joueur != grid[x+1][y+1].ajoueur)) || 
+		((i == 4) && (grid[x][y-1].border == 1)&& (grid[x][y].joueur != grid[x][y-1].ajoueur)) || 
+		((i == 6) && (grid[x][y+1].border == 1)&& (grid[x][y].joueur != grid[x][y+1].ajoueur)) || 
+		((i == 7) && (grid[x-1][y-1].border == 1)&& (grid[x][y].joueur != grid[x-1][y-1].ajoueur)) || 
+		((i == 8) && (grid[x-1][y].border == 1) && (grid[x][y].joueur != grid[x-1][y].ajoueur)) || 
 		((i == 9) && (grid[x-1][y+1].border == 1)&& (grid[x][y].joueur != grid[x-1][y+1].ajoueur))) {
 	return 0; //Bordure
-
-	}else if  (    ((i == 1) && ((x == 9) || (y == 0))) ||
-		       ((i == 2) && (x == 9)) ||
-		       ((i == 3) && ((x == 9) || (y == 9))) ||
-		       ((i == 4) && (y == 0)) ||
-		       ((i == 6) && (y == 9)) ||
-		       ((i == 7) && ((x == 0) || (y == 0))) ||
-		       ((i == 8) && (x == 0)) ||
+	
+	}else if  (    ((i == 1) && ((x == 9) || (y == 0))) || 
+		       ((i == 2) && (x == 9)) || 
+		       ((i == 3) && ((x == 9) || (y == 9))) || 
+		       ((i == 4) && (y == 0)) || 
+		       ((i == 6) && (y == 9)) || 
+		       ((i == 7) && ((x == 0) || (y == 0))) || 
+		       ((i == 8) && (x == 0)) || 
 		       ((i == 9) && ((x == 0) || (y == 9))) ){
 	return 0; //Sortie du plateau
-
-	}else if (((i == 1) && (grid[x+1][y-1].joueur != 0)) ||
-		 ((i == 2) && (grid[x+1][y].joueur != 0)) ||
-		 ((i == 3) && (grid[x+1][y+1].joueur != 0)) ||
-		 ((i == 4) && (grid[x][y-1].joueur != 0)) ||
-		 ((i == 6) && (grid[x][y+1].joueur != 0)) ||
-		 ((i == 7) && (grid[x-1][y-1].joueur != 0)) ||
-		 ((i == 8) && (grid[x-1][y].joueur != 0)) ||
+	
+	}else if (((i == 1) && (grid[x+1][y-1].joueur != 0)) || 
+		 ((i == 2) && (grid[x+1][y].joueur != 0)) || 
+		 ((i == 3) && (grid[x+1][y+1].joueur != 0)) || 
+		 ((i == 4) && (grid[x][y-1].joueur != 0)) || 
+		 ((i == 6) && (grid[x][y+1].joueur != 0)) || 
+		 ((i == 7) && (grid[x-1][y-1].joueur != 0)) || 
+		 ((i == 8) && (grid[x-1][y].joueur != 0)) || 
 		 ((i == 9) && (grid[x-1][y+1].joueur != 0))) {
         return 0; //collision avec un autre pion
     }
@@ -58,7 +58,7 @@ void deplacement (dalle grid[10][10], int x, int y, int xx, int yy) {
 int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) {
 	if (grid[xx][yy].border == 1 && grid[xx][yy].ajoueur != grid[x][y].joueur) {
 		return 0;
-	}
+	} 
 	else if (rx < 0 || rx >9 || ry >9 || ry < 0) {
 		return 0;
 	}
@@ -73,7 +73,7 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
         }
 	else { //return 0;
 		grid[rx][ry].pass = 1;
-		return ((sautValide(grid, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0)) ||
+		return ((sautValide(grid, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0)) || 
 (sautValide(grid, x, y, rx+2,ry,xx,yy) && (grid[x][y].pion->down) && (grid[rx+1][ry].joueur != 0)) || (sautValide(grid, x, y, rx+2,ry+2,xx,yy) && (grid[x][y].pion->diagdownright) && (grid[rx+1][ry+1].joueur != 0)) || (sautValide(grid, x, y, rx,ry-2,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0)) || (sautValide(grid, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0)) || (sautValide(grid, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0)));
 	}
 }
