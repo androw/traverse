@@ -217,3 +217,16 @@ void afficher(dalle g[10][10]) {
 		}
 	}
 }
+
+
+void copy(dalle grid[10][10], dalle r[10][10]) {
+	int i;
+	int j;
+	for (i = 0; i<10; i++) {
+		for (j = 0; j<10; j++) {
+			r[i][j].joueur = grid[i][j].joueur;
+			r[i][j].border = grid[i][j].border;
+			r[i][j].pion = grid[i][j].pion;
+		}
+	}
+}

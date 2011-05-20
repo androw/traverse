@@ -19,4 +19,5 @@ typedef struct {
 void createGrid(dalle grid[10][10]);
 void fillGrid(dalle grid[10][10], int player);
 void afficher(dalle grid[10][10]);
+void copy(dalle grid[10][10], dalle r[10][10]);
 #endif
