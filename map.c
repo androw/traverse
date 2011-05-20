@@ -181,43 +181,104 @@ void fillGrid(dalle grille[10][10],int player) {
 	}
 }
 
-void afficher(dalle g[10][10]) {
+void afficher(dalle g[10][10],SDL_Surface* ecran) {
+	SDL_Surface *imageDeFond = NULL;
+	SDL_Rect positionFond;
+	imageDeFond = SDL_LoadBMP("plateau.bmp");
+	positionFond.x = 0;
+        positionFond.y = 0;
+    	SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 	int i;
 	int j;
 	for (i = 0; i < 10; i++) {
 		for (j = 0; j < 10; j++) {
 			if ((g[i][j].pion == NULL) && ( j == 9)) {
-				printf("[    ] \n");
+				SDL_Surface *imageDeFond = NULL;
+				SDL_Rect positionFond;
+    				positionFond.x = j*0 ;
+    				positionFond.y = i*0 ;
+				
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			} else if ((g[i][j].pion == NULL)) {
-				printf("[    ]");
+				SDL_Surface *imageDeFond = NULL;
+				SDL_Rect positionFond;
+    				positionFond.x = j*0;
+    				positionFond.y = i*0 ;
+				
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == CERCLE) && ( j == 9)) {
-				printf("[%i O ] \n",g[i][j].joueur);
+				
+				SDL_Rect positionFond;
+    				positionFond.x = j*70  ;
+    				positionFond.y = i*70 - 2;
+				imageDeFond = SDL_LoadBMP("cercle.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == CERCLE)) {
 
-				printf("[%i O ]",g[i][j].joueur);
+				SDL_Rect positionFond;
+    				positionFond.x = j*70 ;
+    				positionFond.y = i*70- 2;
+				imageDeFond = SDL_LoadBMP("cercle.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == TRIANGLE) && ( j == 9)) {
 
-				printf("[%i /\\] \n",g[i][j].joueur);
+				SDL_Rect positionFond;
+    				positionFond.x = j*70;
+    				positionFond.y = i*70- 2;
+				imageDeFond = SDL_LoadBMP("triangle.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == TRIANGLE)) {
 
-				printf("[%i /\\]",g[i][j].joueur);
+				
+				SDL_Rect positionFond;
+    				positionFond.x = j*70;
+    				positionFond.y = i*70- 2;
+				imageDeFond = SDL_LoadBMP("triangle.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == CARRE) && (j == 9)) {
 
-				printf("[%i []] \n",g[i][j].joueur);
+				
+				SDL_Rect positionFond;
+    				positionFond.x = j*70;
+    				positionFond.y = i*70;
+				imageDeFond = SDL_LoadBMP("carre.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == CARRE)) {
 
-				printf("[%i []]",g[i][j].joueur);
+				
+				SDL_Rect positionFond;
+    				positionFond.x = j*70;
+    				positionFond.y = i*70;
+				imageDeFond = SDL_LoadBMP("carre.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == LOSANGE) && (j == 9)) {
 
-				printf("[%i <>] \n",g[i][j].joueur);
+				
+				SDL_Rect positionFond;
+    				positionFond.x = j*70;
+    				positionFond.y = i*70- 2;
+				imageDeFond = SDL_LoadBMP("losange.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}else if ((g[i][j].pion->type == LOSANGE)) {
 
-				printf("[%i <>]",g[i][j].joueur);
+				
+				SDL_Rect positionFond;
+    				positionFond.x = j*70;
+    				positionFond.y = i*70- 2;
+				imageDeFond = SDL_LoadBMP("losange.bmp");
+				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 			}
 		}
 	}
 }
-
 
 void copy(dalle grid[10][10], dalle r[10][10]) {
 	int i;

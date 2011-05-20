@@ -3,6 +3,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include <SDL/SDL.h>
 #include "pion.h"
 
 typedef struct {
@@ -18,6 +19,6 @@ typedef struct {
 
 void createGrid(dalle grid[10][10]);
 void fillGrid(dalle grid[10][10], int player);
-void afficher(dalle grid[10][10]);
+void afficher(dalle grid[10][10], SDL_Surface* ecran);
 void copy(dalle grid[10][10], dalle r[10][10]);
 #endif
