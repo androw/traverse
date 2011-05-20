@@ -8,4 +8,6 @@ int sautValide(dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy);
 void deplacement (dalle grid[10][10], int x, int y, int xx, int yy);
 int mvt(dalle grid[10][10], int x, int y, int xx, int yy);
 void reset(dalle grid[10][10]);
+int condWinHM(dalle grid[10][10],int player);
+int condWin(dalle grid[10][10],int player);
 #endif

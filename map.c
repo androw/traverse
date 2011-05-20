@@ -227,6 +227,8 @@ void copy(dalle grid[10][10], dalle r[10][10]) {
 			r[i][j].joueur = grid[i][j].joueur;
 			r[i][j].border = grid[i][j].border;
 			r[i][j].pion = grid[i][j].pion;
+			r[i][j].ajoueur = grid[i][j].ajoueur;
+			r[i][j].pass = grid[i][j].pass;
 		}
 	}
 }
