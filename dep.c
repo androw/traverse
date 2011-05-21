@@ -88,7 +88,7 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 			return((sautValide(grid1, x, y, rx,ry-2,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0))); 
 		}else if ((xx == x) && (yy > y)) {
 			return((sautValide(grid1, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0))); 
-		}else if ((xx < x) && (yy > y)) {
+		}else if ((xx < x) && (yy < y)) {
 			return((sautValide(grid1, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0))); 
 		}else if ((xx < x) && (yy == y)) {
 			return((sautValide(grid1, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0))); 
@@ -96,7 +96,7 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 			return((sautValide(grid1, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0))); 
 		}
 	}  
-return 0;			
+return 1;			
 }
 
 int mvt(dalle grid[10][10], int x, int y, int xx, int yy,int* tourj){
