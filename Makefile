@@ -1,4 +1,4 @@
-CFLAGS=-lSDLmain -lSDL -Wall
+CFLAGS=-lSDLmain -lSDL -Wall -lSDL_ttf
 EXEC=main
 
 all: main.c map.o pion.o dep.o

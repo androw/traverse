@@ -1,6 +1,5 @@
 #include "dep.h"
 
-
 int depV(dalle grid[10][10], int x, int y, int i) {
 	if (   
 		((i == 1) && (grid[x+1][y-1].border == 1) && (grid[x][y].joueur != grid[x+1][y-1].ajoueur)) || 
@@ -90,17 +89,19 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 	}
 }
 
-int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
-    if (x == xx && y == yy) {
+int mvt(dalle grid[10][10], int x, int y, int xx, int yy,int* tourj){
+    if ((x == xx) && (y == yy)) {
         return 0;
     }
-    else if (grid[x][y].joueur == 0) {
-        return 0;
-    }
-	else if (sautValide(grid,x,y,x,y,xx,yy)) {
+        else if (grid[x][y].joueur == 0) {
+        	return 0;
+        }else if (*tourj != grid[x][y].joueur) {
+        	return 0;
+	}else if (sautValide(grid,x,y,x,y,xx,yy)) {
 		deplacement (grid, x, y, xx, yy);
 		reset(grid);
 		return 1;
+		
 	}
  	else if  ((depV(grid,x,y,1) && xx==x+1 && yy==y-1) ||
 		(depV(grid,x,y,2) && xx==x+1 && yy==y) ||
@@ -112,6 +113,7 @@ int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
 		(depV(grid,x,y,9) && xx==x-1 && yy==y+1)) {
 		reset(grid);
 		deplacement (grid, x, y, xx, yy);
+		*tourj = *tourj + 1;
 		return 1;
 	}
 	else {
@@ -132,6 +134,7 @@ void reset(dalle grid[10][10]) {
 
 
 int condWin(dalle grid[10][10],int player) {
+    
         if (
                grid[0][1].joueur==1
             && grid[0][2].joueur==1
@@ -184,6 +187,7 @@ int condWin(dalle grid[10][10],int player) {
 
 
 int condWinHM(dalle grid[10][10],int player) {
+    
         if (
                grid[0][1].joueur==1 && grid[0][1].pion->type == CARRE
             && grid[0][2].joueur==1 && grid[0][2].pion->type == TRIANGLE
