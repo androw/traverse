@@ -79,21 +79,26 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 		copy(grid, grid1);
 		
 		if ((xx > x) && (yy < y)) {
-			return((sautValide(grid1, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0))); 
+			return( (sautValide(grid1, x, y, rx,ry-2,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0)) ||
+				(sautValide(grid1, x, y, rx+2,ry,xx,yy) && (grid[x][y].pion->down) && (grid[rx+1][ry].joueur != 0)) || 
+			        (sautValide(grid1, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0))); 
 		}else if ((xx > x) && (yy == y)) {
-			return((sautValide(grid1, x, y, rx+2,ry,xx,yy) && (grid[x][y].pion->down) && (grid[rx+1][ry].joueur != 0))); 
+			return( (sautValide(grid1, x, y, rx+2,ry+2,xx,yy) && (grid[x][y].pion->diagdownright) && (grid[rx+1][ry+1].joueur != 0)) ||				(sautValide(grid1, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0)) ||				(sautValide(grid1, x, y, rx+2,ry,xx,yy) && (grid[x][y].pion->down) && (grid[rx+1][ry].joueur != 0))); 
 		}else if ((xx > x) && (yy > y)) {
-			return((sautValide(grid1, x, y, rx+2,ry+2,xx,yy) && (grid[x][y].pion->diagdownright) && (grid[rx+1][ry+1].joueur != 0))); 
+			return( (sautValide(grid1, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0)) ||
+				(sautValide(grid1, x, y, rx+2,ry,xx,yy) && (grid[x][y].pion->down) && (grid[rx+1][ry].joueur != 0)) ||
+				(sautValide(grid1, x, y, rx+2,ry+2,xx,yy) && (grid[x][y].pion->diagdownright) && (grid[rx+1][ry+1].joueur != 0))); 
 		}else if ((xx == x) && (yy < y)) {
-			return((sautValide(grid1, x, y, rx,ry-2,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0))); 
+			return((sautValide(grid1, x, y, rx+2,ry-2,xx,yy) && (grid[x][y].pion->diagdownleft) && (grid[rx+1][ry-1].joueur != 0)) ||				(sautValide(grid1, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0)) ||				(sautValide(grid1, x, y, rx,ry-2,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0))); 
 		}else if ((xx == x) && (yy > y)) {
-			return((sautValide(grid1, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0))); 
+			return((sautValide(grid1, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0)) ||				(sautValide(grid1, x, y, rx+2,ry+2,xx,yy) && (grid[x][y].pion->diagdownright) && (grid[rx+1][ry+1].joueur != 0)) ||				(sautValide(grid1, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0))); 
 		}else if ((xx < x) && (yy < y)) {
-			return((sautValide(grid1, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0))); 
+			return((sautValide(grid1, x, y, rx,ry-2,xx,yy) && (grid[x][y].pion->left) && (grid[rx][ry-1].joueur != 0)) ||				(sautValide(grid1, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0)) ||
+				(sautValide(grid1, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0))); 
 		}else if ((xx < x) && (yy == y)) {
-			return((sautValide(grid1, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0))); 
+			return((sautValide(grid1, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0)) ||				(sautValide(grid1, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0)) ||				(sautValide(grid1, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0))); 
 		}else if ((xx < x) && (yy > y)) {
-			return((sautValide(grid1, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0))); 
+			return((sautValide(grid1, x, y, rx,ry+2,xx,yy) && (grid[x][y].pion->right) && (grid[rx][ry+1].joueur != 0)) ||				(sautValide(grid1, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0)) ||				(sautValide(grid1, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0))); 
 		}
 	}  
 return 1;			
