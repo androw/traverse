@@ -18,7 +18,7 @@ typedef struct {
 } dalle;
 
 
-void createGrid(dalle grid[10][10]);
+void createGrid(dalle grid[10][10],int joueur);
 void fillGrid(dalle grid[10][10], int player);
 void afficher(dalle g[10][10],SDL_Surface* ecran);
 void SDL1(dalle grid[10][10]);

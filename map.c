@@ -1,6 +1,6 @@
 #include "map.h"
 #include "dep.h"
-void  createGrid(dalle grid[10][10]){
+void  createGrid(dalle grid[10][10],int joueur){
 	int i;
 	int j;
 	for (i = 0; i < 10; i++) {
@@ -20,10 +20,10 @@ void  createGrid(dalle grid[10][10]){
 			} else if ((i == 9) && ((j>=1) && (j<9))) {
 				grid[i][j].djoueur = 1;
                                 grid[i][j].ajoueur = 2;
-			} else if ((j == 0)  && ((i>=1) && (i<9))) {
+			} else if ((j == 0)  && ((i>=1) && (i<9)) && (joueur == 4)) {
 				grid[i][j].djoueur = 3;
                                 grid[i][j].ajoueur = 4;
-			} else if ((j == 9)  && ((i>=1) && (i<9))) {
+			} else if ((j == 9)  && ((i>=1) && (i<9)) && (joueur == 4)) {
                                 grid[i][j].djoueur = 4;
                                 grid[i][j].ajoueur = 3;
 			} else {
@@ -193,98 +193,44 @@ void afficher(dalle g[10][10],SDL_Surface* ecran) {
 	int j;
 	for (i = 0; i < 10; i++) {
 		for (j = 0; j < 10; j++) {
-			if ((g[i][j].pion == NULL) && ( j == 9)) {
-				SDL_Surface *imageDeFond = NULL;
-				SDL_Rect positionFond;
-    				positionFond.x = j*0 ;
-    				positionFond.y = i*0 ;
-				
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
-			} else if ((g[i][j].pion == NULL)) {
-				SDL_Surface *imageDeFond = NULL;
-				SDL_Rect positionFond;
+			if ((g[i][j].pion == NULL)) {
+				SDL_Surface *imageDeFond0 = NULL;
     				positionFond.x = j*0;
     				positionFond.y = i*0 ;
-				
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
-			}else if ((g[i][j].pion->type == CERCLE) && ( j == 9)) {
-				
-				SDL_Rect positionFond;
+				SDL_BlitSurface(imageDeFond0, NULL, ecran, &positionFond);
+				SDL_FreeSurface(imageDeFond0);
+			}else if ((g[i][j].pion->type == CERCLE)) {
+				SDL_Surface *imageDeFond1 = NULL;
     				positionFond.x = j*70  ;
     				positionFond.y = i*70 - 2;
-				imageDeFond = SDL_LoadBMP("cercle.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
-			}else if ((g[i][j].pion->type == CERCLE)) {
-
-				SDL_Rect positionFond;
-    				positionFond.x = j*70 ;
-    				positionFond.y = i*70- 2;
-				imageDeFond = SDL_LoadBMP("cercle.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
-			}else if ((g[i][j].pion->type == TRIANGLE) && ( j == 9)) {
-
-				SDL_Rect positionFond;
-    				positionFond.x = j*70;
-    				positionFond.y = i*70- 2;
-				imageDeFond = SDL_LoadBMP("triangle.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
+				imageDeFond1 = SDL_LoadBMP("cercle.bmp");
+				SDL_SetColorKey(imageDeFond1, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond1->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond1, NULL, ecran, &positionFond);
+				SDL_FreeSurface(imageDeFond1);
 			}else if ((g[i][j].pion->type == TRIANGLE)) {
-
-				
-				SDL_Rect positionFond;
+				SDL_Surface *imageDeFond2 = NULL;
     				positionFond.x = j*70;
     				positionFond.y = i*70- 2;
-				imageDeFond = SDL_LoadBMP("triangle.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
-			}else if ((g[i][j].pion->type == CARRE) && (j == 9)) {
-
-				
-				SDL_Rect positionFond;
-    				positionFond.x = j*70;
-    				positionFond.y = i*70;
-				imageDeFond = SDL_LoadBMP("carre.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
+				imageDeFond2 = SDL_LoadBMP("triangle.bmp");
+				SDL_SetColorKey(imageDeFond2, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond2->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond2, NULL, ecran, &positionFond);
+				SDL_FreeSurface(imageDeFond2);
 			}else if ((g[i][j].pion->type == CARRE)) {
-
-				
-				SDL_Rect positionFond;
+				SDL_Surface *imageDeFond3 = NULL;
     				positionFond.x = j*70;
     				positionFond.y = i*70;
-				imageDeFond = SDL_LoadBMP("carre.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
-			}else if ((g[i][j].pion->type == LOSANGE) && (j == 9)) {
-
-				
-				SDL_Rect positionFond;
-    				positionFond.x = j*70;
-    				positionFond.y = i*70- 2;
-				imageDeFond = SDL_LoadBMP("losange.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
-				SDL_FreeSurface(imageDeFond);
+				imageDeFond3 = SDL_LoadBMP("carre.bmp");
+				SDL_SetColorKey(imageDeFond3, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond3->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond3, NULL, ecran, &positionFond);
+				SDL_FreeSurface(imageDeFond3);
 			}else if ((g[i][j].pion->type == LOSANGE)) {
-
-				
-				SDL_Rect positionFond;
+				SDL_Surface *imageDeFond4 = NULL;
     				positionFond.x = j*70;
     				positionFond.y = i*70- 2;
-				imageDeFond = SDL_LoadBMP("losange.bmp");
-				SDL_SetColorKey(imageDeFond, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond->format, 255, 255, 255));
-				SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+				imageDeFond4 = SDL_LoadBMP("losange.bmp");
+				SDL_SetColorKey(imageDeFond4, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond4->format, 255, 255, 255));
+				SDL_BlitSurface(imageDeFond4, NULL, ecran, &positionFond);
+				SDL_FreeSurface(imageDeFond4);
 			}
 		}
 	}
@@ -298,12 +244,12 @@ SDL_Event event;
 TTF_Font *police = NULL;
 SDL_Color couleurNoire = {255, 255, 255};
 int continuer = 1;
-int* x;
-int* y;
+int x;
+int y;
 int acc = 1;
 int* tourj;
 *tourj = 1;
-
+//int tour = 1;
 
     
 
@@ -341,35 +287,36 @@ SDL_FreeSurface(texte);
 			case SDL_MOUSEBUTTONUP:
         			if (event.button.button == SDL_BUTTON_LEFT) {
 					if( acc == 1) {
-                           	 		*x = (event.button.x)/69.9; 
-           		   	 		*y = (event.button.y)/69.9;
+                           	 		x = (event.button.x)/69.9; 
+           		   	 		y = (event.button.y)/69.9;
 				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 						SDL_FreeSurface(ecran);
-						afficher(grid,ecran);
+						
 						turn(tourj,ecran);
 				 		texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
 						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 						SDL_FreeSurface(texte);
+						afficher(grid,ecran);
 						SDL_Flip(ecran);
 				 		acc = 2;
 					}else {
-				 		mvt(grid, *y, *x, (event.button.y)/69.9, (event.button.x)/69.9,tourj);
+				 		mvt(grid, y, x, (event.button.y)/69.9, (event.button.x)/69.9,tourj);
 						if (grid[1][9].djoueur == 4){
-							if (*tourj == 3) {
+							if (*tourj == 5) {
 								*tourj = 1;
 							}
 						}else {
-							if (*tourj == 5) {
+							if (*tourj == 3) {
 								*tourj = 1;
 							}
 						}							
 				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
 						SDL_FreeSurface(ecran);
-						afficher(grid,ecran);
 						turn(tourj,ecran);
 						texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
     						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 						SDL_FreeSurface(texte);
+						afficher(grid,ecran);
     						SDL_Flip(ecran);
 						acc=1;
 					
