@@ -7,7 +7,7 @@
 #include "pion.h"
 #include <SDL/SDL_ttf.h>
 
-typedef struct {
+typedef struct dalle {
 	pion* pion;
 	int border;
 	int color;
