@@ -7,9 +7,10 @@ void minimax(dalle grid[10][10], int d, int maxd, int* chosen_score, int chosen_
 	int best_score;
 	int best_move[4];
 	if (d == maxd) {
-		chosen_score =  evaluation(grid);
+		*chosen_score =  evaluation(grid);
 	} else {
-		Move* movesl = listedescoupspossible;
+		Move* movesl;
+		coupPos(grid, movesl);
 		if (movesl == NULL) {
 			*chosen_score = evaluation(grid);
 		} else {
@@ -21,7 +22,7 @@ void minimax(dalle grid[10][10], int d, int maxd, int* chosen_score, int chosen_
 				int* the_score;
 				int the_move[4];
 				minimax(ngrid, d+1, maxd, the_score, the_move);
-				if (*the_score < best_score) {
+				if (*the_score <= best_score) {
 					best_score = *the_score;
 					best_move[0] = the_move[0];
 					best_move[1] = the_move[1];
@@ -64,3 +65,8 @@ int evaluation(dalle grid[10][10]) {
 	} 
 	return acc;
 }
+
+void coupPos(dalle grid[10][10], Move* list) {
+
+}
+	
