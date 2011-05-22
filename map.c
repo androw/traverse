@@ -247,9 +247,10 @@ int continuer = 1;
 int x;
 int y;
 int acc = 1;
-int* tourj;
-*tourj = 1;
-//int tour = 1;
+int tourj = 1;
+int xp;
+int yp;
+
 
     
 
@@ -286,9 +287,11 @@ SDL_FreeSurface(texte);
             			break;
 			case SDL_MOUSEBUTTONUP:
         			if (event.button.button == SDL_BUTTON_LEFT) {
-					if( acc == 1) {
-                           	 		x = (event.button.x)/69.9; 
-           		   	 		y = (event.button.y)/69.9;
+					x = (event.button.x)/69.9; 
+           		   	 	y = (event.button.y)/69.9;
+					if( (acc == 1) && (grid[y][x].joueur == tourj) ) {
+                           	 		xp = x;
+						yp = y;
 				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 						SDL_FreeSurface(ecran);
 						
@@ -300,14 +303,18 @@ SDL_FreeSurface(texte);
 						SDL_Flip(ecran);
 				 		acc = 2;
 					}else {
-				 		mvt(grid, y, x, (event.button.y)/69.9, (event.button.x)/69.9,tourj);
+				 		if(mvt(grid, yp, xp, (event.button.y)/69.9, (event.button.x)/69.9)) {
+						
+						tourj++;
+						}
+						
 						if (grid[1][9].djoueur == 4){
-							if (*tourj == 5) {
-								*tourj = 1;
+							if (tourj == 5) {
+								tourj = 1;
 							}
 						}else {
-							if (*tourj == 3) {
-								*tourj = 1;
+							if (tourj == 3) {
+								tourj = 1;
 							}
 						}							
 				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
@@ -338,7 +345,7 @@ TTF_Quit();
 SDL_Quit();
 }
 
-void turn(int* tourj,SDL_Surface* ecran) {
+void turn(int tourj,SDL_Surface* ecran) {
 SDL_Surface *texte = NULL;
 TTF_Font *police = NULL;
 SDL_Color rouge = {255, 0, 0};
@@ -346,28 +353,28 @@ police = TTF_OpenFont("a.ttf", 30);
 SDL_Rect positiontext;
 positiontext.x = 700;
 positiontext.y = 50;
-						if(*tourj == 1) {
+						if(tourj == 1) {
 							positiontext.x = 700;
 							positiontext.y = 50;
 							texte = TTF_RenderText_Blended(police, "Player 1 Turn !", rouge);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							positiontext.x = 700;
 							positiontext.y = 10;
-						}if(*tourj == 2) {
+						}if(tourj == 2) {
 							positiontext.x = 700;
 							positiontext.y = 50;
 							texte = TTF_RenderText_Blended(police, "Player 2 Turn !", rouge);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							positiontext.x = 700;
 							positiontext.y = 10;
-						}if(*tourj == 3) {
+						}if(tourj == 3) {
 							positiontext.x = 700;
 							positiontext.y = 50;
 							texte = TTF_RenderText_Blended(police, "Player 3 Turn !", rouge);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							positiontext.x = 700;
 							positiontext.y = 10;
-						}if(*tourj == 4) {
+						}if(tourj == 4) {
 							positiontext.x = 700;
 							positiontext.y = 50;
 							texte = TTF_RenderText_Blended(police, "Player 4 Turn !", rouge);

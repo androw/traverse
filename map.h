@@ -22,6 +22,6 @@ void createGrid(dalle grid[10][10],int joueur);
 void fillGrid(dalle grid[10][10], int player);
 void afficher(dalle g[10][10],SDL_Surface* ecran);
 void SDL1(dalle grid[10][10]);
-void turn(int* tourj,SDL_Surface* ecran);
+void turn(int tourj,SDL_Surface* ecran);
 void copy(dalle grid[10][10], dalle r[10][10]);
 #endif

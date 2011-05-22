@@ -89,15 +89,13 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 	}
 }
 
-int mvt(dalle grid[10][10], int x, int y, int xx, int yy,int* tourj){
+int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
     if ((x == xx) && (y == yy)) {
         return 0;
     }
         else if (grid[x][y].joueur == 0) {
         	return 0;
-        }else if (*tourj != grid[x][y].joueur) {
-        	return 0;
-	}
+        }
  	else if  ((depV(grid,x,y,1) && xx==x+1 && yy==y-1) ||
 		(depV(grid,x,y,2) && xx==x+1 && yy==y) ||
 		(depV(grid,x,y,3) && xx==x+1 && yy==y+1) ||
@@ -108,12 +106,10 @@ int mvt(dalle grid[10][10], int x, int y, int xx, int yy,int* tourj){
 		(depV(grid,x,y,9) && xx==x-1 && yy==y+1)) {
 		reset(grid);
 		deplacement (grid, x, y, xx, yy);
-		*tourj = *tourj + 1;
 		return 1;
 	}else if (sautValide(grid,x,y,x,y,xx,yy)) {
 		deplacement (grid, x, y, xx, yy);
 		reset(grid);
-		*tourj = *tourj + 1;
 		return 1;
 		
 	

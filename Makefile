@@ -1,10 +1,15 @@
+CFLAGS=-lSDLmain -lSDL -lSDL_ttf -Wall 
+EXEC=main
+
 all: main.c map.o pion.o dep.o
-	gcc -lSDLmain -lSDL -lSDL_ttf -Wall main.c map.o pion.o dep.o -o main
+	gcc $(CFLAGS) main.c map.o pion.o dep.o -o $(EXEC)
 map.o: map.c map.h pion.o
-	gcc -lSDLmain -lSDL -lSDL_ttf -Wall -c map.c
+	gcc $(CFLAGS) -c map.c
 pion.o: pion.c pion.h
-	gcc -lSDLmain -lSDL -lSDL_ttf -Wall -c pion.c
+	gcc $(CFLAGS) -c pion.c
 dep.o: map.o dep.c dep.h
-	gcc -lSDLmain -lSDL -lSDL_ttf -Wall -c dep.c
+	gcc $(CFLAGS) -c dep.c
 clean:
-	rm -R *.o main
+	rm -R *.o
+mproper: clean
+	rm $(EXEC
