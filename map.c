@@ -182,15 +182,56 @@ void fillGrid(dalle grille[10][10],int player) {
 }
 
 void afficher(dalle g[10][10],SDL_Surface* ecran) {
-	SDL_Surface *imageDeFond = NULL;
 	SDL_Rect positionFond;
-	imageDeFond = SDL_LoadBMP("plateau.bmp");
-	positionFond.x = 0;
-        positionFond.y = 0;
-    	SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+	SDL_Surface *imageDeFond = NULL;
+    	positionFond.x = 500;
+    	positionFond.y = 0 ;
+	imageDeFond = SDL_LoadBMP("fond.bmp");
+	SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
 	SDL_FreeSurface(imageDeFond);
 	int i;
 	int j;
+	for (i = 0; i < 10; i = i + 2) {
+		for (j = 0; j < 10; j++) {
+			SDL_Surface *imageDeFond = NULL;
+    			positionFond.x = j*70;
+    			positionFond.y = i*70 ;
+			imageDeFond = SDL_LoadBMP("1.bmp");
+			SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+			SDL_FreeSurface(imageDeFond);	
+		}
+	}
+	for (i = 0; i < 10; i = i + 2) {
+		for (j = 0; j < 10; j = j+2) {
+			SDL_Surface *imageDeFond = NULL;
+    			positionFond.x = j*70;
+    			positionFond.y = i*70 ;
+			imageDeFond = SDL_LoadBMP("2.bmp");
+			SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+			SDL_FreeSurface(imageDeFond);	
+		}
+	}
+	for (i = 1; i < 10; i = i + 2) {
+		for (j = 0; j < 10; j++) {
+			SDL_Surface *imageDeFond = NULL;
+    			positionFond.x = j*70;
+    			positionFond.y = i*70 ;
+			imageDeFond = SDL_LoadBMP("2.bmp");
+			SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+			SDL_FreeSurface(imageDeFond);	
+		}
+	}
+	for (i = 1; i < 10; i = i + 2) {
+		for (j = 0; j < 10; j = j+ 2) {
+			SDL_Surface *imageDeFond = NULL;
+    			positionFond.x = j*70;
+    			positionFond.y = i*70 ;
+			imageDeFond = SDL_LoadBMP("1.bmp");
+			SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+			SDL_FreeSurface(imageDeFond);	
+		}
+	}
+	
 	for (i = 0; i < 10; i++) {
 		for (j = 0; j < 10; j++) {
 			if ((g[i][j].pion == NULL)) {
@@ -201,34 +242,34 @@ void afficher(dalle g[10][10],SDL_Surface* ecran) {
 				SDL_FreeSurface(imageDeFond0);
 			}else if ((g[i][j].pion->type == CERCLE)) {
 				SDL_Surface *imageDeFond1 = NULL;
-    				positionFond.x = j*70  ;
-    				positionFond.y = i*70 - 2;
+    				positionFond.x = j*70 + 5  ;
+    				positionFond.y = i*70  + 5;
 				imageDeFond1 = SDL_LoadBMP("cercle.bmp");
-				SDL_SetColorKey(imageDeFond1, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond1->format, 255, 255, 255));
+				SDL_SetColorKey(imageDeFond1, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond1->format, 0, 0, 0));
 				SDL_BlitSurface(imageDeFond1, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond1);
 			}else if ((g[i][j].pion->type == TRIANGLE)) {
 				SDL_Surface *imageDeFond2 = NULL;
-    				positionFond.x = j*70;
-    				positionFond.y = i*70- 2;
+    				positionFond.x = j*70 + 5 ;
+    				positionFond.y = i*70+ 5;
 				imageDeFond2 = SDL_LoadBMP("triangle.bmp");
 				SDL_SetColorKey(imageDeFond2, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond2->format, 255, 255, 255));
 				SDL_BlitSurface(imageDeFond2, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond2);
 			}else if ((g[i][j].pion->type == CARRE)) {
 				SDL_Surface *imageDeFond3 = NULL;
-    				positionFond.x = j*70;
-    				positionFond.y = i*70;
+    				positionFond.x = j*70 + 5;
+    				positionFond.y = i*70 + 5;
 				imageDeFond3 = SDL_LoadBMP("carre.bmp");
 				SDL_SetColorKey(imageDeFond3, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond3->format, 255, 255, 255));
 				SDL_BlitSurface(imageDeFond3, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond3);
 			}else if ((g[i][j].pion->type == LOSANGE)) {
 				SDL_Surface *imageDeFond4 = NULL;
-    				positionFond.x = j*70;
-    				positionFond.y = i*70- 2;
+    				positionFond.x = j*70 + 5;
+    				positionFond.y = i*70 + 5;
 				imageDeFond4 = SDL_LoadBMP("losange.bmp");
-				SDL_SetColorKey(imageDeFond4, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond4->format, 255, 255, 255));
+				SDL_SetColorKey(imageDeFond4, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond4->format, 0, 0, 0));
 				SDL_BlitSurface(imageDeFond4, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond4);
 			}
@@ -260,9 +301,9 @@ char tour[15] = "Turn number ";
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 TTF_Init();
     
-ecran = SDL_SetVideoMode(1280, 699, 32,  SDL_HWSURFACE | SDL_RESIZABLE | SDL_DOUBLEBUF);
+ecran = SDL_SetVideoMode(1280, 699, 32,  SDL_HWSURFACE |SDL_DOUBLEBUF);
 SDL_WM_SetCaption("TRAVERSE!", NULL);
-police = TTF_OpenFont("a.ttf", 30);
+police = TTF_OpenFont("a.ttf", 45);
 afficher(grid,ecran);
 turn(tourj,ecran);
 positiontext.x = 700;
@@ -304,7 +345,7 @@ SDL_FreeSurface(texte);
 						yp = y;
 				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 						SDL_FreeSurface(ecran);
-						
+						afficher(grid,ecran);
 						turn(tourj,ecran);
 				 		texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
 						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
@@ -321,14 +362,15 @@ SDL_FreeSurface(texte);
 						SDL_FreeSurface(texte);
 						positiontext.x = 700;
 						positiontext.y = 10;
-						afficher(grid,ecran);
+						
 						SDL_Flip(ecran);
 				 		acc = 2;
 						}else { SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
 						        SDL_FreeSurface(ecran);
+							afficher(grid,ecran);
 							positiontext.x = 700;
 							positiontext.y = 150;
-							texte = TTF_RenderText_Blended(police, "WARNING ! INCORRECT MOVE", couleurNoire);
+							texte = TTF_RenderText_Blended(police, "Uncorrect Click !! ", couleurNoire);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							positiontext.x = 700;
 							positiontext.y = 10;
@@ -351,16 +393,18 @@ SDL_FreeSurface(texte);
 						SDL_FreeSurface(texte);
 						positiontext.x = 700;
 						positiontext.y = 10;
-						afficher(grid,ecran);
+						
 						
 						
     						SDL_Flip(ecran);
 						}
 												
 				}else {SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
+						
 				 		if(mvt(grid, yp, xp, (event.button.y)/69.9, (event.button.x)/69.9)) {
 						
 							tourj++;
+							afficher(grid,ecran);
 							if (tourj == 5) {
 								touri++;
 								sprintf( nbr, "%d", touri );
@@ -368,7 +412,7 @@ SDL_FreeSurface(texte);
 						}else{
 							positiontext.x = 700;
 							positiontext.y = 150;
-							texte = TTF_RenderText_Blended(police, "WARNING ! INCORRECT MOVE", couleurNoire);
+							texte = TTF_RenderText_Blended(police, "Uncorrect Click !! ", couleurNoire);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							positiontext.x = 700;
 							positiontext.y = 10;
@@ -388,6 +432,7 @@ SDL_FreeSurface(texte);
 						}							
 				 		
 						SDL_FreeSurface(ecran);
+						
 						turn(tourj,ecran);
 						texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
     						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
@@ -404,7 +449,7 @@ SDL_FreeSurface(texte);
 						SDL_FreeSurface(texte);
 						positiontext.x = 700;
 						positiontext.y = 10;
-						afficher(grid,ecran);
+						
 						
 						
     						SDL_Flip(ecran);
@@ -432,7 +477,7 @@ void turn(int tourj,SDL_Surface* ecran) {
 SDL_Surface *texte = NULL;
 TTF_Font *police = NULL;
 SDL_Color rouge = {255, 0, 0};
-police = TTF_OpenFont("a.ttf", 30);
+police = TTF_OpenFont("a.ttf", 45);
 SDL_Rect positiontext;
 positiontext.x = 700;
 positiontext.y = 50;
