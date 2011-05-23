@@ -11,7 +11,9 @@ dep.o: map.o dep.c dep.h
 	gcc $(CFLAGS) -c dep.c
 ai.o: ai.h ai.c dep.o
 	gcc $(CFLAGS) -c ai.c
+hugz.o: map.o hugz.h hugz.c
+	gcc $(CFLAGS) -c hugz.c
 clean:
 	rm -R *.o
 mproper: clean
-	rm $(EXEC
+	rm $(EXEC)

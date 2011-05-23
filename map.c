@@ -250,7 +250,10 @@ int acc = 1;
 int tourj = 1;
 int xp;
 int yp;
-
+char nbr[4];
+int touri = 1;
+sprintf( nbr, "%d", touri );
+char tour[15] = "Turn number ";
 
     
 
@@ -266,6 +269,12 @@ positiontext.x = 700;
 positiontext.y = 10;
 texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
 SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+positiontext.x = 700;
+positiontext.y = 100;
+texte = TTF_RenderText_Blended(police, "Turn number 1", couleurNoire);
+SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+positiontext.x = 700;
+positiontext.y = 10;
 SDL_Flip(ecran);
 SDL_FreeSurface(texte);
 
@@ -289,7 +298,8 @@ SDL_FreeSurface(texte);
         			if (event.button.button == SDL_BUTTON_LEFT) {
 					x = (event.button.x)/69.9; 
            		   	 	y = (event.button.y)/69.9;
-					if( (acc == 1) && (grid[y][x].joueur == tourj) ) {
+					if( (acc == 1) ) {
+						if ((grid[y][x].joueur == tourj)) {
                            	 		xp = x;
 						yp = y;
 				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
@@ -299,14 +309,73 @@ SDL_FreeSurface(texte);
 				 		texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
 						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 						SDL_FreeSurface(texte);
+						positiontext.x = 700;
+						positiontext.y = 100;
+						texte = TTF_RenderText_Blended(police, tour, couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+						SDL_FreeSurface(texte);
+						positiontext.x = 900;
+						positiontext.y = 100;
+						texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+						SDL_FreeSurface(texte);
+						positiontext.x = 700;
+						positiontext.y = 10;
 						afficher(grid,ecran);
 						SDL_Flip(ecran);
 				 		acc = 2;
-					}else {
+						}else { SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+						        SDL_FreeSurface(ecran);
+							positiontext.x = 700;
+							positiontext.y = 150;
+							texte = TTF_RenderText_Blended(police, "WARNING ! INCORRECT MOVE", couleurNoire);
+							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							positiontext.x = 700;
+							positiontext.y = 10;
+							
+							SDL_FreeSurface(texte);
+							SDL_FreeSurface(ecran);
+						turn(tourj,ecran);
+						texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
+    						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+						SDL_FreeSurface(texte);
+						positiontext.x = 700;
+						positiontext.y = 100;
+						texte = TTF_RenderText_Blended(police, tour, couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+						SDL_FreeSurface(texte);
+						positiontext.x = 900;
+						positiontext.y = 100;
+						texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+						SDL_FreeSurface(texte);
+						positiontext.x = 700;
+						positiontext.y = 10;
+						afficher(grid,ecran);
+						
+						
+    						SDL_Flip(ecran);
+						}
+												
+				}else {SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
 				 		if(mvt(grid, yp, xp, (event.button.y)/69.9, (event.button.x)/69.9)) {
 						
-						tourj++;
+							tourj++;
+							if (tourj == 5) {
+								touri++;
+								sprintf( nbr, "%d", touri );
+							}
+						}else{
+							positiontext.x = 700;
+							positiontext.y = 150;
+							texte = TTF_RenderText_Blended(police, "WARNING ! INCORRECT MOVE", couleurNoire);
+							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							positiontext.x = 700;
+							positiontext.y = 10;
+							SDL_FreeSurface(texte);	
+							
 						}
+						
 						
 						if (grid[1][9].djoueur == 4){
 							if (tourj == 5) {
@@ -317,13 +386,27 @@ SDL_FreeSurface(texte);
 								tourj = 1;
 							}
 						}							
-				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
+				 		
 						SDL_FreeSurface(ecran);
 						turn(tourj,ecran);
 						texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
     						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 						SDL_FreeSurface(texte);
+						positiontext.x = 700;
+						positiontext.y = 100;
+						texte = TTF_RenderText_Blended(police, tour, couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+						SDL_FreeSurface(texte);
+						positiontext.x = 900;
+						positiontext.y = 100;
+						texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+						SDL_FreeSurface(texte);
+						positiontext.x = 700;
+						positiontext.y = 10;
 						afficher(grid,ecran);
+						
+						
     						SDL_Flip(ecran);
 						acc=1;
 					
@@ -398,3 +481,5 @@ void copy(dalle grid[10][10], dalle r[10][10]) {
 		}
 	}
 }
+
+
