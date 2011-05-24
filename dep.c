@@ -89,7 +89,7 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 	}
 }
 
-int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
+int verif(dalle grid[10][10], int x, int y, int xx, int yy){
     if ((x == xx) && (y == yy)) {
         return 0;
     }
@@ -105,10 +105,8 @@ int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
 		(depV(grid,x,y,8) && xx==x-1 && yy==y) ||
 		(depV(grid,x,y,9) && xx==x-1 && yy==y+1)) {
 		reset(grid);
-		deplacement (grid, x, y, xx, yy);
 		return 1;
 	}else if (sautValide(grid,x,y,x,y,xx,yy)) {
-		deplacement (grid, x, y, xx, yy);
 		reset(grid);
 		return 1;
 		
@@ -116,6 +114,15 @@ int mvt(dalle grid[10][10], int x, int y, int xx, int yy){
 	}else {
 	reset(grid);
 	return 0;
+	}
+}
+
+int mvt(dalle grid[10][10], int x, int y, int xx, int yy){ 
+	if (verif(grid, x, y, xx, yy)) {
+		deplacement (grid, x, y, xx, yy);
+		return 1;
+	} else {
+		return 0;
 	}
 }
 
@@ -130,108 +137,4 @@ void reset(dalle grid[10][10]) {
 }
 
 
-int condWin(dalle grid[10][10],int player) {
-    
-        if (
-               grid[0][1].joueur==1
-            && grid[0][2].joueur==1
-            && grid[0][3].joueur==1
-            && grid[0][4].joueur==1
-            && grid[0][5].joueur==1
-            && grid[0][6].joueur==1
-            && grid[0][7].joueur==1
-            && grid[0][8].joueur==1) {
-                return 1;
-        }
-        else if (
-               grid[9][1].joueur==2
-            && grid[9][2].joueur==2
-            && grid[9][3].joueur==2
-            && grid[9][4].joueur==2
-            && grid[9][5].joueur==2
-            && grid[9][6].joueur==2
-            && grid[9][7].joueur==2
-            && grid[9][8].joueur==2) {
-                return 2;
-        }
-     if (player == 4) {
-        if (
-               grid[1][9].joueur==3
-            && grid[2][9].joueur==3
-            && grid[3][9].joueur==3
-            && grid[4][9].joueur==3
-            && grid[5][9].joueur==3
-            && grid[6][9].joueur==3
-            && grid[7][9].joueur==3
-            && grid[8][9].joueur==3) {
-                return 3;
-        }
-        else if (
-               grid[1][0].joueur==4
-            && grid[2][0].joueur==4
-            && grid[3][0].joueur==4
-            && grid[4][0].joueur==4
-            && grid[5][0].joueur==4
-            && grid[6][0].joueur==4
-            && grid[7][0].joueur==4
-            && grid[8][0].joueur==4 ) {
-                return 4;
-        }
-        else return 0;
-     }
-    else return 0;
-}
-
-
-int condWinHM(dalle grid[10][10],int player) {
-    
-        if (
-               grid[0][1].joueur==1 && grid[0][1].pion->type == CARRE
-            && grid[0][2].joueur==1 && grid[0][2].pion->type == TRIANGLE
-            && grid[0][3].joueur==1 && grid[0][3].pion->type == LOSANGE
-            && grid[0][4].joueur==1 && grid[0][4].pion->type == CERCLE
-            && grid[0][5].joueur==1 && grid[0][5].pion->type == CERCLE
-            && grid[0][6].joueur==1 && grid[0][6].pion->type == LOSANGE
-            && grid[0][7].joueur==1 && grid[0][7].pion->type == TRIANGLE
-            && grid[0][8].joueur==1 && grid[0][8].pion->type == CARRE) {
-                return 1;
-        }
-        else if (
-               grid[9][1].joueur==2 && grid[9][1].pion->type == CARRE
-            && grid[9][2].joueur==2 && grid[9][2].pion->type == TRIANGLE
-            && grid[9][3].joueur==2 && grid[9][3].pion->type == LOSANGE
-            && grid[9][4].joueur==2 && grid[9][4].pion->type == CERCLE
-            && grid[9][5].joueur==2 && grid[9][4].pion->type == CERCLE
-            && grid[9][6].joueur==2 && grid[9][6].pion->type == LOSANGE
-            && grid[9][7].joueur==2 && grid[9][7].pion->type == TRIANGLE
-            && grid[9][8].joueur==2 && grid[9][8].pion->type == CARRE) {
-                return 2;
-        }
-     if (player == 4) {
-        if (
-               grid[1][9].joueur==3 && grid[1][9].pion->type == CARRE
-            && grid[2][9].joueur==3 && grid[2][9].pion->type == TRIANGLE
-            && grid[3][9].joueur==3 && grid[3][9].pion->type == LOSANGE
-            && grid[4][9].joueur==3 && grid[4][9].pion->type == CERCLE
-            && grid[5][9].joueur==3 && grid[5][9].pion->type == CERCLE
-            && grid[6][9].joueur==3 && grid[6][9].pion->type == LOSANGE
-            && grid[7][9].joueur==3 && grid[7][9].pion->type == TRIANGLE
-            && grid[8][9].joueur==3 && grid[8][9].pion->type == CARRE) {
-                return 3;
-        }
-        else if (
-               grid[1][0].joueur==4 && grid[1][0].pion->type == CARRE
-            && grid[2][0].joueur==4 && grid[2][0].pion->type == TRIANGLE
-            && grid[3][0].joueur==4 && grid[3][0].pion->type == LOSANGE
-            && grid[4][0].joueur==4 && grid[4][0].pion->type == CERCLE
-            && grid[5][0].joueur==4 && grid[5][0].pion->type == CERCLE
-            && grid[6][0].joueur==4 && grid[6][0].pion->type == LOSANGE
-            && grid[7][0].joueur==4 && grid[7][0].pion->type == TRIANGLE
-            && grid[8][0].joueur==4 && grid[8][0].pion->type == CARRE ) {
-                return 4;
-        }
-        else return 0;
-    }
-    else return 0;
-}
 
