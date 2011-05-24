@@ -9,9 +9,27 @@ typedef struct Move {
 	struct Move* next;
 } Move;
 
-void bestmove(dalle grid[10][10], int move[4]);
+typedef struct evalCoup {
+	int move[4];
+	int valeur;
+	struct evalCoup* next;
+} evalCoup;
+
+typedef struct listI {
+	int n;
+	struct listI* next;
+} listI;
+
 int evaluation(dalle grid[10][10]);
-void add(Move* list, int move[4]);
-void minimax(dalle grid[10][10], int d, int maxd, int* chosen_score, int chosen_move[4], int min);
-void coupPos(dalle grid[10][10], Move* list, int player);
+Move* add(Move* list, int move[4]);
+Move* coupPos(dalle grid[10][10], int player);
+listI* addI(listI* list, int a);
+int minmax(dalle grid[10][10], int d, int evalMax);
+int max(listI* l);
+int min(listI* l);
+int defaite(dalle g[10][10]);
+int victoire(dalle g[10][10]);
+evalCoup* jouer(dalle g[10][10]);
+evalCoup* addC(evalCoup* coups, int coup[4], int a);
+evalCoup* cMax(evalCoup* coups);
 #endif
