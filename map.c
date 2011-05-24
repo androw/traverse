@@ -301,7 +301,7 @@ char tour[15] = "Turn number ";
 
 int bot = 1;
 int tab[4];
-bestmove(grid, tab);
+//bestmove(grid, tab);
 
 //BOOOOT
 
