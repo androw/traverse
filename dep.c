@@ -55,25 +55,23 @@ void deplacement (dalle grid[10][10], int x, int y, int xx, int yy) {
 }
 
 int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) {
-	if (grid[xx][yy].border == 1 && grid[xx][yy].ajoueur != grid[x][y].joueur && (x != xx) && (y != yy)) {
+	if (grid[xx][yy].border == 1 && grid[xx][yy].ajoueur != grid[x][y].joueur) {
 		return 0;
 	} 
+	else if (rx == x && ry == y) {
+	}
 	else if (rx < 0 || rx >9 || ry >9 || ry < 0) {
 		return 0;
 	}
-	else if (grid[rx][ry].joueur != grid[x][y].joueur && grid[rx][ry].joueur != 0) {
+	else if (grid[rx][ry].joueur != 0) {
 		return 0;
 	}
-	else if (grid[rx][ry].joueur != 0 && rx != x && ry != y) {
-                return 0;
-        }
 	else if (rx == xx && ry == yy) {
 		return 1;
 	}
 	else if (grid[rx][ry].pass == 1) {
                 return 0;
-        }
-	else { //return 0;
+    }
 		grid[rx][ry].pass = 1;
 		dalle grid1[10][10];
 		copy(grid, grid1);
@@ -86,7 +84,7 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 			(sautValide(grid1, x, y, rx-2,ry-2,xx,yy) && (grid[x][y].pion->diagupleft) && (grid[rx-1][ry-1].joueur != 0)) || 
 			(sautValide(grid1, x, y, rx-2,ry,xx,yy) && (grid[x][y].pion->up) && (grid[rx-1][ry].joueur != 0)) || 
 			(sautValide(grid1, x, y, rx-2,ry+2,xx,yy) && (grid[x][y].pion->diagupright) && (grid[rx-1][ry+1].joueur != 0)));
-	}
+
 }
 
 int verif(dalle grid[10][10], int x, int y, int xx, int yy){
