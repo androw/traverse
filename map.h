@@ -6,16 +6,10 @@
 #include <SDL/SDL.h>
 #include "pion.h"
 #include <SDL/SDL_ttf.h>
-
-typedef struct dalle {
-	pion* pion;
-	int border;
-	int color;
-	int djoueur;
-	int ajoueur;
-	int joueur;
-	int pass;
-} dalle;
+#include "dep.h"
+#include "dalle.h"
+#include "arb.h"
+#include "ai.h"
 
 
 void createGrid(dalle grid[10][10],int joueur);

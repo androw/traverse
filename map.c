@@ -1,5 +1,5 @@
 #include "map.h"
-#include "dep.h"
+
 void  createGrid(dalle grid[10][10],int joueur){
 	int i;
 	int j;
@@ -296,6 +296,20 @@ int touri = 1;
 sprintf( nbr, "%d", touri );
 char tour[15] = "Turn number ";
 
+
+//BOOOOT
+
+int bot = 1;
+int tab[4];
+bestmove(grid, tab);
+
+//BOOOOT
+
+Noeud* p =(Noeud*)malloc(sizeof(Noeud));
+p->suivant = NULL;
+p->acc = 0;
+copy(grid,p->grille);
+
     
 
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
@@ -319,7 +333,7 @@ positiontext.y = 10;
 SDL_Flip(ecran);
 SDL_FreeSurface(texte);
 
-    while (continuer){
+    while (condWin(grid,4) == 0 && continuer) {
 
     	SDL_WaitEvent(&event);
     		switch(event.type){
@@ -407,9 +421,12 @@ SDL_FreeSurface(texte);
 							afficher(grid,ecran);
 							if (tourj == 5) {
 								touri++;
+								if (pathTest(p,grid) == 1) {
+									continuer = 0;
+								}
 								sprintf( nbr, "%d", touri );
 							}
-						}else{
+						}else{afficher(grid,ecran);
 							positiontext.x = 700;
 							positiontext.y = 150;
 							texte = TTF_RenderText_Blended(police, "Uncorrect Click !! ", couleurNoire);
