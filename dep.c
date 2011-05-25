@@ -65,7 +65,7 @@ void deplacement (dalle grid[10][10], int x, int y, int xx, int yy) {
 }
 
 int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) {
-	if (grid[xx][yy].border == 1 && grid[xx][yy].ajoueur != grid[x][y].joueur) {
+	if (grid[xx][yy].border == 1 && grid[xx][yy].ajoueur != grid[x][y].joueur && (x != xx) && (y != yy)) {
 		return 0;
 	} 
 	else if (grid[xx][yy].mur == 1) {
@@ -76,7 +76,7 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 	else if (rx < 0 || rx >9 || ry >9 || ry < 0) {
 		return 0;
 	}
-	else if (grid[rx][ry].joueur != 0 || grid[rx][ry].mur == 1) {
+	else if (grid[rx][ry].joueur != grid[x][y].joueur && grid[rx][ry].joueur != 0) {
 		return 0;
 	}
 	else if (rx == xx && ry == yy) {
@@ -84,7 +84,7 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 	}
 	else if (grid[rx][ry].pass == 1) {
                 return 0;
-    }
+    	}
 		grid[rx][ry].pass = 1;
 		dalle grid1[10][10];
 		copy(grid, grid1);
