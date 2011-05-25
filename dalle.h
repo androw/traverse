@@ -5,6 +5,7 @@
 
 typedef struct dalle{
 	struct pion* pion;
+	int mur;
 	int border;
 	int color;
 	int djoueur;
