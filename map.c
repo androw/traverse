@@ -9,6 +9,7 @@ void  createGrid(dalle grid[10][10],int joueur){
 			grid[i][j].joueur = 0;
 			grid[i][j].pion = NULL;
 			grid[i][j].pass = 0;
+			grid[i][j].mur = 0;
 			if ((i == 0) || (i == 9) || (j == 0) || (j == 9)) {
 				grid[i][j].border = 1;
 			} else {
@@ -231,7 +232,6 @@ void afficher(dalle g[10][10],SDL_Surface* ecran) {
 			SDL_FreeSurface(imageDeFond);	
 		}
 	}
-	
 	for (i = 0; i < 10; i++) {
 		for (j = 0; j < 10; j++) {
 			if ((g[i][j].pion == NULL)) {
@@ -244,23 +244,54 @@ void afficher(dalle g[10][10],SDL_Surface* ecran) {
 				SDL_Surface *imageDeFond1 = NULL;
     				positionFond.x = j*70 + 5  ;
     				positionFond.y = i*70  + 5;
-				imageDeFond1 = SDL_LoadBMP("cercle.bmp");
-				SDL_SetColorKey(imageDeFond1, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond1->format, 0, 0, 0));
+				if (g[i][j].joueur == 1) {
+				imageDeFond1 = IMG_Load("cercle1.png");
+				}
+				if (g[i][j].joueur == 2) {
+				imageDeFond1 = IMG_Load("cercle2.png");
+				}
+				if (g[i][j].joueur == 3) {
+				imageDeFond1 = IMG_Load("cercle3.png");
+				}
+				if (g[i][j].joueur == 4) {
+				imageDeFond1 = IMG_Load("cercle4.png");
+				}
 				SDL_BlitSurface(imageDeFond1, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond1);
 			}else if ((g[i][j].pion->type == TRIANGLE)) {
 				SDL_Surface *imageDeFond2 = NULL;
     				positionFond.x = j*70 + 5 ;
     				positionFond.y = i*70+ 5;
-				imageDeFond2 = SDL_LoadBMP("triangle.bmp");
-				SDL_SetColorKey(imageDeFond2, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond2->format, 255, 255, 255));
+				if (g[i][j].joueur == 1) {
+				imageDeFond2 = IMG_Load("triangle1.png");
+				}
+				if (g[i][j].joueur == 2) {
+				imageDeFond2 = IMG_Load("triangle2.png");
+				}
+				if (g[i][j].joueur == 3) {
+				imageDeFond2 = IMG_Load("triangle3.png");
+				}
+				if (g[i][j].joueur == 4) {
+				imageDeFond2 = IMG_Load("triangle4.png");
+				}
 				SDL_BlitSurface(imageDeFond2, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond2);
 			}else if ((g[i][j].pion->type == CARRE)) {
 				SDL_Surface *imageDeFond3 = NULL;
     				positionFond.x = j*70 + 5;
     				positionFond.y = i*70 + 5;
-				imageDeFond3 = SDL_LoadBMP("carre.bmp");
+				if (g[i][j].joueur == 1) {
+				imageDeFond3 = SDL_LoadBMP("carre1.bmp");
+				}
+				if (g[i][j].joueur == 2) {
+				imageDeFond3 = SDL_LoadBMP("carre2.bmp");
+				}
+				if (g[i][j].joueur == 3) {
+				imageDeFond3 = SDL_LoadBMP("carre3.bmp");
+				}
+				if (g[i][j].joueur == 4) {
+				imageDeFond3 = SDL_LoadBMP("carre4.bmp");
+				}
 				SDL_SetColorKey(imageDeFond3, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond3->format, 255, 255, 255));
 				SDL_BlitSurface(imageDeFond3, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond3);
@@ -268,19 +299,31 @@ void afficher(dalle g[10][10],SDL_Surface* ecran) {
 				SDL_Surface *imageDeFond4 = NULL;
     				positionFond.x = j*70 + 5;
     				positionFond.y = i*70 + 5;
-				imageDeFond4 = SDL_LoadBMP("losange.bmp");
-				SDL_SetColorKey(imageDeFond4, SDL_SRCCOLORKEY, SDL_MapRGB(imageDeFond4->format, 0, 0, 0));
+				if (g[i][j].joueur == 1) {
+				imageDeFond4 = IMG_Load("losange1.png");
+				}
+				if (g[i][j].joueur == 2) {
+				imageDeFond4 = IMG_Load("losange2.png");
+				}
+				if (g[i][j].joueur == 3) {
+				imageDeFond4 = IMG_Load("losange3.png");
+				}
+				if (g[i][j].joueur == 4) {
+				imageDeFond4 = IMG_Load("losange4.png");
+				}
 				SDL_BlitSurface(imageDeFond4, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond4);
 			}
 		}
 	}
-}
+}	
 
 void SDL1(dalle grid[10][10]){
 SDL_Surface *ecran = NULL;
 SDL_Surface *texte = NULL;
+SDL_Surface *caze = NULL;
 SDL_Rect positiontext;
+SDL_Rect positionCurseur;
 SDL_Event event;
 TTF_Font *police = NULL;
 SDL_Color couleurNoire = {255, 255, 255};
@@ -295,22 +338,6 @@ char nbr[4];
 int touri = 1;
 sprintf( nbr, "%d", touri );
 char tour[15] = "Turn number ";
-
-
-//BOOOOT
-
-int bot = 1;
-int tab[4];
-//bestmove(grid, tab);
-
-//BOOOOT
-
-Noeud* p =(Noeud*)malloc(sizeof(Noeud));
-p->suivant = NULL;
-p->acc = 0;
-copy(grid,p->grille);
-
-    
 
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 TTF_Init();
@@ -333,7 +360,7 @@ positiontext.y = 10;
 SDL_Flip(ecran);
 SDL_FreeSurface(texte);
 
-    while (condWin(grid,4) == 0 && continuer) {
+    while (continuer) {
 
     	SDL_WaitEvent(&event);
     		switch(event.type){
@@ -345,42 +372,47 @@ SDL_FreeSurface(texte);
                 			case SDLK_ESCAPE: 
                     			continuer = 0;
                     			break;
-				  	default:
-	       				break;
+							default:
+								break;
             			}
-            			break;
-			case SDL_MOUSEBUTTONUP:
+				case SDL_MOUSEBUTTONUP:
         			if (event.button.button == SDL_BUTTON_LEFT) {
-					x = (event.button.x)/69.9; 
-           		   	 	y = (event.button.y)/69.9;
-					if( (acc == 1) ) {
-						if ((grid[y][x].joueur == tourj)) {
-                           	 		xp = x;
-						yp = y;
-				 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-						SDL_FreeSurface(ecran);
-						afficher(grid,ecran);
-						turn(tourj,ecran);
-				 		texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
-						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-						SDL_FreeSurface(texte);
-						positiontext.x = 700;
-						positiontext.y = 100;
-						texte = TTF_RenderText_Blended(police, tour, couleurNoire);
-						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-						SDL_FreeSurface(texte);
-						positiontext.x = 900;
-						positiontext.y = 100;
-						texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
-						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-						SDL_FreeSurface(texte);
-						positiontext.x = 700;
-						positiontext.y = 10;
-						
-						SDL_Flip(ecran);
-				 		acc = 2;
-						}else { SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-						        SDL_FreeSurface(ecran);
+						x = (event.button.x)/70; 
+           		   	 	y = (event.button.y)/70;
+						if( (acc == 1) ) {
+							if ((grid[y][x].joueur == tourj)) {
+                           		xp = x;
+								yp = y;
+								positionCurseur.x = (x)*70;
+								positionCurseur.y = (y)*70;
+								SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+								SDL_FreeSurface(ecran);
+								afficher(grid,ecran);
+								turn(tourj,ecran);
+								texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
+								SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+								SDL_FreeSurface(texte);
+								positiontext.x = 700;
+								positiontext.y = 100;
+								texte = TTF_RenderText_Blended(police, tour, couleurNoire);
+								SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+								SDL_FreeSurface(texte);
+								positiontext.x = 900;
+								positiontext.y = 100;
+								texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
+								SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+								SDL_FreeSurface(texte);
+								positiontext.x = 700;
+								positiontext.y = 10;
+								caze = SDL_LoadBMP("caze.bmp");
+								SDL_SetAlpha(caze, SDL_SRCALPHA, 50);
+								SDL_BlitSurface(caze, NULL, ecran, &positionCurseur);
+								SDL_FreeSurface(caze);
+								SDL_Flip(ecran);
+								acc = 2;
+							}else { 
+							SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+						    SDL_FreeSurface(ecran);
 							afficher(grid,ecran);
 							positiontext.x = 700;
 							positiontext.y = 150;
@@ -407,10 +439,7 @@ SDL_FreeSurface(texte);
 						SDL_FreeSurface(texte);
 						positiontext.x = 700;
 						positiontext.y = 10;
-						
-						
-						
-    						SDL_Flip(ecran);
+						SDL_Flip(ecran);
 						}
 												
 				}else {SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
@@ -421,9 +450,6 @@ SDL_FreeSurface(texte);
 							afficher(grid,ecran);
 							if (tourj == 5) {
 								touri++;
-								if (pathTest(p,grid) == 1) {
-									continuer = 0;
-								}
 								sprintf( nbr, "%d", touri );
 							}
 						}else{afficher(grid,ecran);
@@ -544,4 +570,196 @@ void copy(dalle grid[10][10], dalle r[10][10]) {
 	}
 }
 
+void fillGridHM(dalle grille[10][10],int player) {
+	pion* carre=(pion*)malloc(sizeof(pion));
+	int accMur =7;
+	int randx;
+	int randy;
+	carre->up=1;
+	carre->down=1;
+	carre->left=1;
+	carre->right=1;
+	carre->diagupleft=0;
+	carre->diagupright=0;
+	carre->diagdownleft=0;
+	carre->diagdownright=0;
+	carre->type=CARRE;
+	grille[0][1].pion = carre;
+	grille[0][1].joueur = 2;
+	grille[0][8].pion = carre;
+	grille[0][8].joueur = 2;
+	grille[9][1].pion = carre;
+	grille[9][1].joueur = 1;
+	grille[9][8].pion = carre;
+	grille[9][8].joueur = 1;
+	if (player==4) {
+		grille[1][0].pion = carre;
+       		grille[8][0].pion = carre;
+       		grille[1][9].pion = carre;
+       		grille[8][9].pion = carre;
+		grille[1][0].joueur = 3;
+                grille[8][0].joueur = 3;
+                grille[1][9].joueur = 4;
+                grille[8][9].joueur = 4;
+}
+	pion* losange=(pion*)malloc(sizeof(pion));
+        losange->up=0;
+        losange->down=0;
+        losange->left=0;
+        losange->right=0;
+        losange->diagupleft=1;
+        losange->diagupright=1;
+        losange->diagdownleft=1;
+        losange->diagdownright=1;
+        losange->type=LOSANGE;
+        grille[0][3].pion = losange;
+        grille[0][6].pion = losange;
+        grille[9][3].pion = losange;
+        grille[9][6].pion = losange;
+        grille[0][3].joueur = 2;
+        grille[0][6].joueur = 2;
+        grille[9][3].joueur = 1;
+        grille[9][6].joueur = 1;
+	 if (player==4) {
+                 grille[3][0].pion = losange;
+                 grille[3][9].pion = losange;
+                 grille[6][0].pion = losange;
+                 grille[6][9].pion = losange;
+       		 grille[3][0].joueur = 3;
+                 grille[3][9].joueur = 4;
+                 grille[6][0].joueur = 3;
+                 grille[6][9].joueur = 4;
+	 }
+	pion* cercle=(pion*)malloc(sizeof(pion));
+        cercle->up=1;
+        cercle->down=1;
+        cercle->left=1;
+        cercle->right=1;
+        cercle->diagupleft=1;
+        cercle->diagupright=1;
+        cercle->diagdownleft=1;
+        cercle->diagdownright=1;
+        cercle->type=CERCLE;
+        grille[0][4].pion = cercle;
+        grille[0][5].pion = cercle;
+        grille[9][4].pion = cercle;
+        grille[9][5].pion = cercle;
+	grille[0][4].joueur = 2;
+        grille[0][5].joueur = 2;
+        grille[9][4].joueur = 1;
+        grille[9][5].joueur = 1;
+
+        if (player==4) {
+                grille[4][0].pion = cercle;
+                grille[5][0].pion = cercle;
+                grille[4][9].pion = cercle;
+                grille[5][9].pion = cercle;
+		grille[4][0].joueur = 3;
+                grille[5][0].joueur = 3;
+                grille[4][9].joueur = 4;
+                grille[5][9].joueur = 4;
+        }
+	pion* triangle1=(pion*)malloc(sizeof(pion));
+	pion* triangle2=(pion*)malloc(sizeof(pion));
+	pion* triangle3=(pion*)malloc(sizeof(pion));
+	pion* triangle4=(pion*)malloc(sizeof(pion));
+        triangle1->up=0;
+        triangle1->down=1;
+        triangle1->left=0;
+        triangle1->right=0;
+        triangle1->diagupleft=1;
+        triangle1->diagupright=1;
+        triangle1->diagdownleft=0;
+        triangle1->diagdownright=0;
+        triangle1->type=TRIANGLE;
+	triangle2->up=1;
+        triangle2->down=0;
+        triangle2->left=0;
+        triangle2->right=0;
+        triangle2->diagupleft=0;
+        triangle2->diagupright=0;
+        triangle2->diagdownleft=1;
+        triangle2->diagdownright=1;
+        triangle2->type=TRIANGLE;
+	
+        grille[0][2].pion = triangle2;
+        grille[0][7].pion = triangle2;
+        grille[9][2].pion = triangle1;
+        grille[9][7].pion = triangle1;
+        grille[0][2].joueur = 2;
+        grille[0][7].joueur = 2;
+        grille[9][2].joueur = 1;
+        grille[9][7].joueur = 1;
+	 if (player==4) {
+                grille[2][0].pion = triangle3;
+                grille[7][0].pion = triangle3;
+                grille[2][9].pion = triangle4;
+                grille[7][9].pion = triangle4;
+		grille[2][0].joueur = 3;
+                grille[7][0].joueur = 3;
+                grille[2][9].joueur = 4;
+                grille[7][9].joueur = 4;
+		triangle3->up=0;
+        	triangle3->down=0;
+        	triangle3->left=1;
+        	triangle3->right=0;
+        	triangle3->diagupleft=0;
+        	triangle3->diagupright=1;
+        	triangle3->diagdownleft=0;
+        	triangle3->diagdownright=1;
+        	triangle3->type=TRIANGLE;
+         	triangle4->up=0;
+        	triangle4->down=0;
+        	triangle4->left=0;
+        	triangle4->right=1;
+        	triangle4->diagupleft=1;
+        	triangle4->diagupright=0;
+        	triangle4->diagdownleft=1;
+        	triangle4->diagdownright=0;
+        	triangle4->type=TRIANGLE;
+	}
+	while (accMur != 0) {
+		srand(time(NULL));
+		randx=rand()%6 + 1;
+		randy=rand()%6 + 1;
+		if (grille[randx][randy].mur == 0) {
+			grille[randx][randy].mur =1;
+			accMur--;
+		}
+	}
+}
+
+void afficheConsole(dalle g[10][10]) {
+int i;
+int j;
+for (i = 0; i < 10; i++) {
+for (j = 0; j < 10; j++) {
+   if ((g[i][j].mur == 1) && ( j == 9)) {
+printf("[  X ] \n");
+} else if ((g[i][j].mur == 1)) {
+printf("[  X ]");
+}else if ((g[i][j].pion == NULL) && ( j == 9)) {
+printf("[    ] \n");
+} else if ((g[i][j].pion == NULL)) {
+printf("[    ]");
+}else if ((g[i][j].pion->type == CERCLE) && ( j == 9)) {
+printf("[%i O ] \n",g[i][j].joueur);
+}else if ((g[i][j].pion->type == CERCLE)) {
+printf("[%i O ]",g[i][j].joueur);
+}else if ((g[i][j].pion->type == TRIANGLE) && ( j == 9)) {
+printf("[%i /\\] \n",g[i][j].joueur);
+}else if ((g[i][j].pion->type == TRIANGLE)) {
+printf("[%i /\\]",g[i][j].joueur);
+}else if ((g[i][j].pion->type == CARRE) && (j == 9)) {
+printf("[%i []] \n",g[i][j].joueur);
+}else if ((g[i][j].pion->type == CARRE)) {
+printf("[%i []]",g[i][j].joueur);
+}else if ((g[i][j].pion->type == LOSANGE) && (j == 9)) {
+printf("[%i <>] \n",g[i][j].joueur);
+}else if ((g[i][j].pion->type == LOSANGE)) {
+printf("[%i <>]",g[i][j].joueur);
+}
+}
+}
+}
 
