@@ -2,6 +2,16 @@
 
 int depV(dalle grid[10][10], int x, int y, int i) {
 	if (   
+		((i == 1) && (grid[x+1][y-1].mur == 1)) || 
+		((i == 2) && (grid[x+1][y].mur == 1) ) || 
+		((i == 3) && (grid[x+1][y+1].mur == 1)) || 
+		((i == 4) && (grid[x][y-1].mur == 1)) || 
+		((i == 6) && (grid[x][y+1].mur == 1)) || 
+		((i == 7) && (grid[x-1][y-1].mur == 1)) || 
+		((i == 8) && (grid[x-1][y].mur == 1)) || 
+		((i == 9) && (grid[x-1][y+1].mur == 1))) {
+	return 0; //mur
+	}else if (   
 		((i == 1) && (grid[x+1][y-1].border == 1) && (grid[x][y].joueur != grid[x+1][y-1].ajoueur)) || 
 		((i == 2) && (grid[x+1][y].border == 1) && (grid[x][y].joueur != grid[x+1][y].ajoueur)) || 
 		((i == 3) && (grid[x+1][y+1].border == 1) && (grid[x][y].joueur != grid[x+1][y+1].ajoueur)) || 
@@ -58,12 +68,15 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 	if (grid[xx][yy].border == 1 && grid[xx][yy].ajoueur != grid[x][y].joueur) {
 		return 0;
 	} 
+	else if (grid[xx][yy].mur == 1) {
+		return 0;
+	}	
 	else if (rx == x && ry == y) {
 	}
 	else if (rx < 0 || rx >9 || ry >9 || ry < 0) {
 		return 0;
 	}
-	else if (grid[rx][ry].joueur != 0) {
+	else if (grid[rx][ry].joueur != 0 || grid[rx][ry].mur == 1) {
 		return 0;
 	}
 	else if (rx == xx && ry == yy) {
