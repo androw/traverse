@@ -11,7 +11,7 @@
 #include "dalle.h"
 #include "arb.h"
 #include "ai.h"
-
+#include<time.h>
 
 void createGrid(dalle grid[10][10],int joueur);
 void fillGrid(dalle grid[10][10], int player);
