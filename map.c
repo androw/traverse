@@ -1,4 +1,6 @@
 #include "map.h"
+#include "time.h"
+
 
 void  createGrid(dalle grid[10][10],int joueur){
 	int i;
@@ -360,7 +362,7 @@ positiontext.y = 10;
 SDL_Flip(ecran);
 SDL_FreeSurface(texte);
 
-    while (continuer) {
+    while (continuer && condWin(grid,4)==0) {
 
     	SDL_WaitEvent(&event);
     		switch(event.type){
