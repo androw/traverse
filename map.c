@@ -318,9 +318,111 @@ void afficher(dalle g[10][10],SDL_Surface* ecran) {
 			}
 		}
 	}
+SDL_Surface *imageMenu = NULL;
+positionFond.x = 750;
+positionFond.y = 600;
+imageMenu = IMG_Load("menu.png");
+SDL_BlitSurface(imageMenu, NULL, ecran, &positionFond);
+SDL_FreeSurface(imageMenu);
+positionFond.x = 1024;
+positionFond.y = 590;
+imageMenu = IMG_Load("restart.png");
+SDL_BlitSurface(imageMenu, NULL, ecran, &positionFond);
+SDL_FreeSurface(imageMenu);
 }	
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// FENETRE ACCEUIL//////////////////////////////////////////////////////////////////////////////////
+
+
+void SDL2(dalle grid[10][10]) {
+
+SDL_Surface *ecran2= NULL;
+SDL_Surface *fond= NULL;
+SDL_Surface *texte = NULL;
+SDL_Event event;
+TTF_Font *police = NULL;
+SDL_Color couleurNoire = {0, 0, 0};
+int continuer = 1;
+int acc = 0;
+SDL_Rect positionFond;
+SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
+TTF_Init();
+
+ecran2 = SDL_SetVideoMode(500, 335, 32,  SDL_HWSURFACE |SDL_DOUBLEBUF);
+police = TTF_OpenFont("a.ttf", 25);
+positionFond.x = 0;
+positionFond.y = 0 ;
+fond = IMG_Load("echec.jpg");
+SDL_BlitSurface(fond, NULL, ecran2, &positionFond);
+SDL_FreeSurface(fond);
+positionFond.x = 100;
+positionFond.y = 20 ;
+texte = TTF_RenderText_Blended(police, "New game vs player", couleurNoire);
+SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+positionFond.x = 100;
+positionFond.y = 70 ;
+texte = TTF_RenderText_Blended(police, "New game vs IA", couleurNoire);
+SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+positionFond.x = 100;
+positionFond.y = 120 ;
+texte = TTF_RenderText_Blended(police, "Quit", couleurNoire);
+SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+SDL_Flip(ecran2);
+SDL_FreeSurface(ecran2);
+
+
+while (continuer){
+
+    	SDL_WaitEvent(&event);
+    		switch(event.type){
+        		case SDL_QUIT:
+            			continuer = 0;
+            			break;
+        		case SDL_KEYDOWN:
+            			switch (event.key.keysym.sym){
+                			case SDLK_ESCAPE: 
+                    			continuer = 0;
+					
+                    			break;
+				  	default:
+	       				break;
+            			}
+			case SDL_MOUSEBUTTONUP:
+        			if (event.button.button == SDL_BUTTON_LEFT) {
+					 
+           		   	 	if((event.button.y)<70 && (event.button.y)>20) {	
+            				acc = 1;
+					continuer = 0;
+					}
+           		   	 	if((event.button.y)<120 && (event.button.y)>70) {	
+            				acc = 1;
+					continuer = 0;
+					}
+           		   	 	if((event.button.y)<150 && (event.button.y)>120) {	
+            				
+					continuer = 0;
+					}
+				}
+	 			 default:
+	      			 break;
+    		}
+       
+    
+
+	}
+TTF_CloseFont(police); 
+TTF_Quit();
+SDL_Quit();
+
+if(acc == 1) {
+	SDL1(grid);
+}
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//////AFFICHAGE JEU//////////////////////////////////////////////////////////////////////////////////
 
 void SDL1(dalle grid[10][10]){
+
 SDL_Surface *ecran = NULL;
 SDL_Surface *texte = NULL;
 SDL_Surface *caze = NULL;
@@ -339,10 +441,11 @@ int yp;
 char nbr[4];
 int touri = 1;
 sprintf( nbr, "%d", touri );
-char tour[15] = "Turn number ";
-
+char tour[15] = "Turn number ";   
+int fenetre = 0;
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 TTF_Init();
+
     
 ecran = SDL_SetVideoMode(1280, 699, 32,  SDL_HWSURFACE |SDL_DOUBLEBUF);
 SDL_WM_SetCaption("TRAVERSE!", NULL);
@@ -362,7 +465,8 @@ positiontext.y = 10;
 SDL_Flip(ecran);
 SDL_FreeSurface(texte);
 
-    while (continuer && condWin(grid,4)==0) {
+
+    while (continuer){
 
     	SDL_WaitEvent(&event);
     		switch(event.type){
@@ -373,48 +477,59 @@ SDL_FreeSurface(texte);
             			switch (event.key.keysym.sym){
                 			case SDLK_ESCAPE: 
                     			continuer = 0;
-                    			break;
-							default:
-								break;
+               
+				  	default:
+	       				break;
             			}
-				case SDL_MOUSEBUTTONUP:
+				
+            			
+			case SDL_MOUSEBUTTONUP:
         			if (event.button.button == SDL_BUTTON_LEFT) {
-						x = (event.button.x)/70; 
+					x = (event.button.x)/70; 
            		   	 	y = (event.button.y)/70;
-						if( (acc == 1) ) {
-							if ((grid[y][x].joueur == tourj)) {
-                           		xp = x;
-								yp = y;
-								positionCurseur.x = (x)*70;
-								positionCurseur.y = (y)*70;
-								SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-								SDL_FreeSurface(ecran);
-								afficher(grid,ecran);
-								turn(tourj,ecran);
-								texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
-								SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-								SDL_FreeSurface(texte);
-								positiontext.x = 700;
-								positiontext.y = 100;
-								texte = TTF_RenderText_Blended(police, tour, couleurNoire);
-								SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-								SDL_FreeSurface(texte);
-								positiontext.x = 900;
-								positiontext.y = 100;
-								texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
-								SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-								SDL_FreeSurface(texte);
-								positiontext.x = 700;
-								positiontext.y = 10;
-								caze = SDL_LoadBMP("caze.bmp");
-								SDL_SetAlpha(caze, SDL_SRCALPHA, 50);
-								SDL_BlitSurface(caze, NULL, ecran, &positionCurseur);
-								SDL_FreeSurface(caze);
-								SDL_Flip(ecran);
-								acc = 2;
-							}else { 
+					if((event.button.y)<650 && (event.button.y)>590 && (event.button.x)<960 && (event.button.x)>750) {	
+            					fenetre = 2;
+						continuer = 0;
+					}
+					else if((event.button.y)<650 && (event.button.y)>590 && (event.button.x)<1150 && (event.button.x)>1024) {	
+
+						fenetre = 1;
+						continuer = 0;
+					}else if ((event.button.y)<700 && (event.button.y)>0 && (event.button.x)<700 && (event.button.x)>0 ) {
+					if( (acc == 1) ) {
+						if ((grid[y][x].joueur == tourj)) {
+                           	 			xp = x;
+							yp = y;	
+							positionCurseur.x = (x)*70; 
+            						positionCurseur.y = (y)*70;
+				 			SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
+							SDL_FreeSurface(ecran);
+							afficher(grid,ecran);
+							turn(tourj,ecran);
+				 			texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
+							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							SDL_FreeSurface(texte);
+							positiontext.x = 700;
+							positiontext.y = 100;
+							texte = TTF_RenderText_Blended(police, tour, couleurNoire);
+							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							SDL_FreeSurface(texte);
+							positiontext.x = 900;
+							positiontext.y = 100;
+							texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
+							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							SDL_FreeSurface(texte);
+							positiontext.x = 700;
+							positiontext.y = 10;
+							caze = SDL_LoadBMP("caze.bmp");
+							SDL_SetAlpha(caze, SDL_SRCALPHA, 50);
+							SDL_BlitSurface(caze, NULL, ecran, &positionCurseur);
+							SDL_FreeSurface(caze);
+							SDL_Flip(ecran);
+				 			acc = 2;
+						}else { 
 							SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));
-						    SDL_FreeSurface(ecran);
+							SDL_FreeSurface(ecran);
 							afficher(grid,ecran);
 							positiontext.x = 700;
 							positiontext.y = 150;
@@ -422,39 +537,42 @@ SDL_FreeSurface(texte);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							positiontext.x = 700;
 							positiontext.y = 10;
-							
+								
 							SDL_FreeSurface(texte);
-							SDL_FreeSurface(ecran);
-						turn(tourj,ecran);
-						texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
-    						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-						SDL_FreeSurface(texte);
-						positiontext.x = 700;
-						positiontext.y = 100;
-						texte = TTF_RenderText_Blended(police, tour, couleurNoire);
-						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-						SDL_FreeSurface(texte);
-						positiontext.x = 900;
-						positiontext.y = 100;
-						texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
-						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-						SDL_FreeSurface(texte);
-						positiontext.x = 700;
-						positiontext.y = 10;
-						SDL_Flip(ecran);
+					                SDL_FreeSurface(ecran);
+							turn(tourj,ecran);
+							texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
+	    						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							SDL_FreeSurface(texte);
+							positiontext.x = 700;
+							positiontext.y = 100;
+							texte = TTF_RenderText_Blended(police, tour, couleurNoire);
+							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							SDL_FreeSurface(texte);
+							positiontext.x = 900;
+							positiontext.y = 100;
+							texte = TTF_RenderText_Blended(police, nbr, couleurNoire);
+							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
+							SDL_FreeSurface(texte);
+							positiontext.x = 700;
+							positiontext.y = 10;
+						
+						
+						
+	    						SDL_Flip(ecran);
 						}
 												
-				}else {SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
+				}else {
+						SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
 						
-				 		if(mvt(grid, yp, xp, (event.button.y)/69.9, (event.button.x)/69.9)) {
+				 		if(
+							mvt(grid, yp, xp, (event.button.y)/69.9, (event.button.x)/69.9)) {
 						
 							tourj++;
 							afficher(grid,ecran);
-							if (tourj == 5) {
-								touri++;
-								sprintf( nbr, "%d", touri );
-							}
-						}else{afficher(grid,ecran);
+
+						}else{
+							afficher(grid,ecran);
 							positiontext.x = 700;
 							positiontext.y = 150;
 							texte = TTF_RenderText_Blended(police, "Uncorrect Click !! ", couleurNoire);
@@ -469,10 +587,14 @@ SDL_FreeSurface(texte);
 						if (grid[1][9].djoueur == 4){
 							if (tourj == 5) {
 								tourj = 1;
+								touri++;
+								sprintf( nbr, "%d", touri );
 							}
 						}else {
 							if (tourj == 3) {
 								tourj = 1;
+								touri++;
+								sprintf( nbr, "%d", touri );
 							}
 						}							
 				 		
@@ -507,7 +629,7 @@ SDL_FreeSurface(texte);
 	 			 default:
 	      			 break;
     		}
-       
+       }
     
 
 	}
@@ -516,7 +638,19 @@ TTF_CloseFont(police);
 TTF_Quit();
 
 SDL_Quit();
+if (fenetre == 2) {
+createGrid(grid, 4);
+fillGrid(grid, 4);
+	SDL2(grid);
 }
+if (fenetre == 1) {
+createGrid(grid, 4);
+fillGrid(grid, 4);
+SDL1(grid);
+}
+
+}
+
 
 void turn(int tourj,SDL_Surface* ecran) {
 SDL_Surface *texte = NULL;
