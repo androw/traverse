@@ -236,12 +236,23 @@ void afficher(dalle g[10][10],SDL_Surface* ecran) {
 	}
 	for (i = 0; i < 10; i++) {
 		for (j = 0; j < 10; j++) {
-			if ((g[i][j].pion == NULL)) {
+			if (g[i][j].pion == NULL && (g[i][j].mur == 0)) {
 				SDL_Surface *imageDeFond0 = NULL;
     				positionFond.x = j*0;
     				positionFond.y = i*0 ;
 				SDL_BlitSurface(imageDeFond0, NULL, ecran, &positionFond);
 				SDL_FreeSurface(imageDeFond0);
+			}else if (g[i][j].pion == NULL && (g[i][j].mur == 1)) {
+				SDL_Surface *imageDeFond0 = NULL;
+    				positionFond.x = j*0;
+    				positionFond.y = i*0 ;
+				SDL_BlitSurface(imageDeFond0, NULL, ecran, &positionFond);
+				SDL_FreeSurface(imageDeFond0);
+				SDL_Surface *imageDeFond99 = IMG_Load("losange1.png");;
+    				positionFond.x = j*70 + 5;
+    				positionFond.y = i*70 + 5 ;
+				SDL_BlitSurface(imageDeFond99, NULL, ecran, &positionFond);
+				SDL_FreeSurface(imageDeFond99);
 			}else if ((g[i][j].pion->type == CERCLE)) {
 				SDL_Surface *imageDeFond1 = NULL;
     				positionFond.x = j*70 + 5  ;
@@ -443,6 +454,10 @@ int touri = 1;
 sprintf( nbr, "%d", touri );
 char tour[15] = "Turn number ";   
 int fenetre = 0;
+Noeud* p = (Noeud*) malloc(sizeof(Noeud));
+p->suivant = NULL;
+p->acc=0;
+copy(grid,p->grille);
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 TTF_Init();
 
@@ -586,15 +601,19 @@ SDL_FreeSurface(texte);
 						
 						if (grid[1][9].djoueur == 4){
 							if (tourj == 5) {
-								tourj = 1;
-								touri++;
-								sprintf( nbr, "%d", touri );
+								if (pathTest(p,grid) == 0) {
+									tourj = 1;
+									touri++;
+									sprintf( nbr, "%d", touri );
+								} else {continuer =0;}
 							}
 						}else {
 							if (tourj == 3) {
-								tourj = 1;
-								touri++;
-								sprintf( nbr, "%d", touri );
+								if (pathTest(p,grid) == 0) {
+									tourj = 1;
+									touri++;
+									sprintf( nbr, "%d", touri );
+								} else {continuer =0;}
 							}
 						}							
 				 		
