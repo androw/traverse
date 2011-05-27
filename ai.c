@@ -37,15 +37,15 @@ Move* coupPos(dalle grid[10][10], int player) {
 	int j;
 	int ii;
 	int jj;
-	Move* list;
+	Move* list = NULL;
 	for (i = 0; i<10; i++) {
 		for (j = 0; j<10; j++) {
 			int tab[4];
 			tab[0] = i;
 			tab[1] = j;
 			if (grid[i][j].joueur == player) {
-				for (ii = 0; ii < i+5 && ii < 10; ii++) {
-					for (jj = 0; jj < j+5 && jj < 10; jj++) {
+				for (ii = 0; ii < 10; ii++) {
+					for (jj = 0; jj < 10; jj++) {
 						if (verif(grid, i, j, ii, jj)) {
 						tab[2] = ii;
 						tab[3] = jj;
@@ -59,67 +59,59 @@ Move* coupPos(dalle grid[10][10], int player) {
 	return list;			
 }
 	
-int minmax(dalle grid[10][10], int d, int evalMax) {
+int minmax(dalle grid[10][10], int d, int alpha, int beta, int evalMax) {
 	if (d == 0 || victoire(grid) || defaite(grid)) {
 		return evaluation(grid);
 	}else {
-		listI* list;
-		Move* moves;
+		Move* moves = NULL;
 		
 		if (evalMax) {
+			alpha = -999;
 			moves = coupPos(grid, 2);
 		} else {
+			beta = +999;
 			moves = coupPos(grid, 1);
 		}
-
-		while (list != NULL) {
+		while (moves != NULL) {
 			dalle ngrid[10][10];
-            copy(ngrid, grid);
+            copy(grid, ngrid);
+            //printf("%i %i %i %i\n" , moves->mov[0], moves->mov[1], moves->mov[2], moves->mov[3]);
             deplacement(ngrid, moves->mov[0], moves->mov[1], moves->mov[2], moves->mov[3]);
-			list = addI(list, minmax(ngrid, d-1, !evalMax));
+            if (evalMax) {
+				alpha = max(alpha, minmax(ngrid, d-1, alpha, beta, 0));
+				if (alpha >= beta) {
+					return alpha;
+				}
+			} else {
+				beta = min(beta, minmax(ngrid, d-1, alpha, beta, 1));
+				if (alpha >= beta) {
+					return beta;
+				}
+			}
+			moves = moves->next;
 		}
 		if (evalMax) {
-			return max(list);
+			return alpha;
 		} else {
-			return min(list);
+			return beta;
 		}
 	}
 }
 
-listI* addI(listI* list, int a) {
-	listI* n = (listI*) malloc(sizeof(listI));
-	n->n = a;
-	n->next = NULL;
-	if (list == NULL) {
-                return n;
-        } else {
-                n->next = list;
-                return n;
-        }
-}
-
-int min(listI* l) {
-	int min;
-	min = l->n;
-	while (l != NULL) {
-		if (l->n < min) {
-			min = l->n;
-		}
-		l = l->next;
+int min(int a, int b) {
+	if (a > b) {
+		return b;
+	} else {
+		return a;
 	}
-	return min;
 }
 
-int max(listI* l) {
-        int max;
-        max = l->n;
-        while (l != NULL) {
-                if (l->n > max) {
-                        max = l->n;
-                }
-                l = l->next;
-        }
-	return max;
+int max(int a, int b) {
+    if (a > b) {
+		return a;
+	} else {
+		return b;
+	}
 }
 
 int victoire(dalle g[10][10]) {
@@ -139,15 +131,16 @@ int defaite(dalle g[10][10]) {
 }
 
 evalCoup* jouer(dalle g[10][10]) {
-		Move* moves;
-		evalCoup* coups;
+		Move* moves = NULL;
+		evalCoup* coups = NULL;
 		moves = coupPos(g, 2);
 		while (moves != NULL) {
 			dalle ngrid[10][10];
             copy(g, ngrid);
             deplacement(ngrid, moves->mov[0], moves->mov[1], moves->mov[2], moves->mov[3]);
-			coups = addC(coups, moves->mov, minmax (ngrid, 5, 0));
+			coups = addC(coups, moves->mov, minmax (ngrid, 2, -999, 999, 0));
 			moves = moves->next;
+			
 		}
 		return cMax(coups);
 }
@@ -162,10 +155,10 @@ evalCoup* addC(evalCoup* coups, int coup[4], int a) {
 	n->next = NULL;
 	if (coups == NULL) {
                 return n;
-        } else {
+    } else {
                 n->next = coups;
                 return n;
-        }
+    }
 }
 
 evalCoup* cMax(evalCoup* coups) {
