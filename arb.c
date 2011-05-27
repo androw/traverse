@@ -152,3 +152,31 @@ int condWinHM(dalle grid[10][10],int player) {
     }
     else return 0;
 }
+
+int antiJeuTest(dalle grid[10][10],int tour) {
+	int i;
+if (tour >= 30) {
+	for (i=1;i<9;i++) {
+		if (grid[9][i].joueur == 1) {
+			return 1;
+		}
+	}
+	for (i=1;i<9;i++) {
+		if (grid[0][i].joueur == 2) {
+			return 2;
+		}
+	}
+	for (i=1;i<9;i++) {
+		if (grid[i][0].joueur == 3) {
+			return 3;
+		}
+	}
+	for (i=1;i<9;i++) {
+		if (grid[i][9].joueur == 4) {
+			return 4;
+		}
+	}
+	return 0;
+}
+else return 0;
+}
