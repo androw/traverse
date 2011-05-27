@@ -25,7 +25,7 @@ int evaluation(dalle grid[10][10]) {
 				acc = acc + i;
 			}
 			else if (grid[i][j].joueur == 1) {
-				acc = acc - i;
+				acc = acc - 10 + i;
 			}
 		}
 	} 

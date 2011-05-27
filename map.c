@@ -461,6 +461,12 @@ copy(grid,p->grille);
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 TTF_Init();
 
+
+//evalCoup* test = jouer(grid);
+//printf("TEST %i %i %i %i", test->move[0], test->move[1], test->move[2], test->move[3]);
+
+
+
     
 ecran = SDL_SetVideoMode(1280, 699, 32,  SDL_HWSURFACE |SDL_DOUBLEBUF);
 SDL_WM_SetCaption("TRAVERSE!", NULL);
