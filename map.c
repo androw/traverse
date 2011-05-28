@@ -492,12 +492,12 @@ SDL_Quit();
 
 if(acc == 2) {
 createGrid(grid, 2);
-fillGrid(grid, 2);
+fillGridHM(grid, 2);
 	SDL1(grid,nbrjoueur,IA);
 }
 if(acc == 3) {
 createGrid(grid, 4);
-fillGrid(grid, 4);
+fillGridHM(grid, 4);
 	SDL1(grid,nbrjoueur,IA);
 }
 }
@@ -784,7 +784,7 @@ if (fenetre == 2) {
 }
 if (fenetre == 1) {
 createGrid(grid, nbrjoueur);
-fillGrid(grid, nbrjoueur);
+fillGridHM(grid, nbrjoueur);
 SDL1(grid,nbrjoueur,IA);
 }
 
@@ -841,6 +841,7 @@ void copy(dalle grid[10][10], dalle r[10][10]) {
 			r[i][j].pion = grid[i][j].pion;
 			r[i][j].ajoueur = grid[i][j].ajoueur;
 			r[i][j].pass = grid[i][j].pass;
+			r[i][j].mur = grid[i][j].mur;
 		}
 	}
 }
@@ -995,8 +996,8 @@ void fillGridHM(dalle grille[10][10],int player) {
 	}
 	while (accMur != 0) {
 		srand(time(NULL));
-		randx=rand()%6 + 1;
-		randy=rand()%6 + 1;
+		randx=rand()%6 + 2;
+		randy=rand()%6 + 2;
 		if (grille[randx][randy].mur == 0) {
 			grille[randx][randy].mur =1;
 			accMur--;

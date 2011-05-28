@@ -78,8 +78,11 @@ int sautValide (dalle grid[10][10], int x, int y,int rx,int ry, int xx, int yy) 
 		return 1;
 	}
 	else if (grid[rx][ry].pass == 1) {
-        return 0;
-    }
+        	return 0;
+	}
+        else if (grid[xx][yy].mur == 1 || grid[rx][ry].mur == 1) {
+       		 return 0;
+	}
 	else {
 		grid[rx][ry].pass = 1;
 		dalle gridr[10][10];
