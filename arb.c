@@ -21,7 +21,7 @@ int pathTest (Noeud* teteliste, dalle grid[10][10]) {
         }
         if (fullPath == 1) {
             l->acc = l->acc + 1;//incrementation de la situation rencontree
-            if (l->acc == 3) {//cas ou la partie est nulle (meme situation 3fois)
+            if (l->acc >= 3) {//cas ou la partie est nulle (meme situation 3fois)
                 return 1;
             }
             else {return 0;}
@@ -31,7 +31,7 @@ int pathTest (Noeud* teteliste, dalle grid[10][10]) {
                     l = l->suivant;
         } else {
             Noeud* p = (Noeud*)malloc(sizeof(Noeud)); //création du nouveau noeud pour la grille
-                p->acc=0;//situation rencontrée deja une fois
+                p->acc= 1;//situation rencontrée deja une fois
                 for (i=0;i<10;i++) {
                         for (j=0;j<10;j++) {//copie de la grille
                             p->grille[i][j].pion = grid[i][j].pion;
