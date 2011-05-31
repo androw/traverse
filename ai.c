@@ -43,7 +43,7 @@ Move* coupPos(dalle grid[10][10], int player) {
 			int tab[4];
 			tab[0] = i;
 			tab[1] = j;
-			if (grid[i][j].joueur == player) {
+			if (grid[i][j].joueur == player && grid[i][j].joueur == 2) {
 				for (ii = i; ii < 10; ii++) {
 					for (jj = 1; jj < 9; jj++) {
 						if (verif(grid, i, j, ii, jj)) {
@@ -53,6 +53,16 @@ Move* coupPos(dalle grid[10][10], int player) {
 						}
 					}
 				}
+			} else if (grid[i][j].joueur == player && grid[i][j].joueur == 1){
+				for (ii = 0; ii < i; ii++) {
+                                        for (jj = 1; jj < 9; jj++) {
+                                                if (verif(grid, i, j, ii, jj)) {
+                                                tab[2] = ii;
+                                                tab[3] = jj;
+                                                list = add(list, tab);
+                                                }
+                                        }
+                                }
 			}
 		}
 	}
@@ -138,7 +148,7 @@ evalCoup* jouer(dalle g[10][10]) {
 			dalle ngrid[10][10];
             copy(g, ngrid);
             deplacement(ngrid, moves->mov[0], moves->mov[1], moves->mov[2], moves->mov[3]);
-			coups = addC(coups, moves->mov, minmax (ngrid, 5, -999, 999, 0));
+			coups = addC(coups, moves->mov, minmax (ngrid, 2, -999, 999, 0));
 			moves = moves->next;
 			
 		}
