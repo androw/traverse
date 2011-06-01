@@ -405,9 +405,7 @@ SDL_WaitEvent(&event);
 					 
            		   	 if((event.button.y)<70 && (event.button.y)>20) {
 					SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
-					SDL_FreeSurface(ecran2);
-					ecran2 = SDL_SetVideoMode(500, 335, 32,  SDL_HWSURFACE |SDL_DOUBLEBUF);
-					police = TTF_OpenFont("a.ttf", 25);	
+					SDL_FreeSurface(ecran2);	
 					positionFond.x = 0;
 					positionFond.y = 0 ;
 					fond = IMG_Load("echec.jpg");
@@ -442,22 +440,28 @@ SDL_WaitEvent(&event);
 					}
 				}
 	 			 
-				else if (event.button.button == SDL_BUTTON_LEFT && acc == 1) {
+				
+				else if (event.button.button == SDL_BUTTON_LEFT && acc == 4) {
 					 
            		   	 	if((event.button.y)<70 && (event.button.y)>20) {	
             				acc = 2;
 					continuer = 0;
 					}
-           		   	 	if((event.button.y)<120 && (event.button.y)>70) {
-					nbrjoueur = 4;	
+           		   	 	if((event.button.y)<120 && (event.button.y)>70) {	
             				acc = 3;
 					continuer = 0;
 					}
-           		   	 	if((event.button.y)<150 && (event.button.y)>120) {	
+           		   	 	if((event.button.y)<170 && (event.button.y)>120) {	
+            				acc = 5;
+					continuer = 0;
+					}
+           		   	 	if((event.button.y)<200 && (event.button.y)>170) {	
+            				acc = 6;
+					continuer = 0;
+					}
+           		   	 	if((event.button.y)<280 && (event.button.y)>210) {	
             				SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
-					SDL_FreeSurface(ecran2);
-					ecran2 = SDL_SetVideoMode(500, 335, 32,  SDL_HWSURFACE |SDL_DOUBLEBUF);
-					police = TTF_OpenFont("a.ttf", 25);
+					SDL_FreeSurface(ecran2);	
 					positionFond.x = 0;
 					positionFond.y = 0 ;
 					fond = IMG_Load("echec.jpg");
@@ -465,20 +469,114 @@ SDL_WaitEvent(&event);
 					SDL_FreeSurface(fond);
 					positionFond.x = 100;
 					positionFond.y = 20 ;
-					texte = TTF_RenderText_Blended(police, "New game vs player", couleurNoire);
+					texte = TTF_RenderText_Blended(police, "2 Players", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
 					positionFond.x = 100;
 					positionFond.y = 70 ;
-					texte = TTF_RenderText_Blended(police, "New game vs IA", couleurNoire);
+					texte = TTF_RenderText_Blended(police, "4 Players", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
 					positionFond.x = 100;
 					positionFond.y = 120 ;
-					texte = TTF_RenderText_Blended(police, "Quit", couleurNoire);
+					texte = TTF_RenderText_Blended(police, "Return Back", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					SDL_Flip(ecran2);
+					SDL_FreeSurface(ecran2);	
+            				acc = 1;
+					}
+				}
+
+				else if (event.button.button == SDL_BUTTON_LEFT && acc == 1) {
+					 
+           		   	 	if((event.button.y)<70 && (event.button.y)>20) {
+            				SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
+					SDL_FreeSurface(ecran2);
+					positionFond.x = 0;
+					positionFond.y = 0 ;
+					fond = IMG_Load("echec.jpg");
+					SDL_BlitSurface(fond, NULL, ecran2, &positionFond);
+					SDL_FreeSurface(fond);
+					positionFond.x = 50;
+					positionFond.y = 20 ;
+					texte = TTF_RenderText_Blended(police, "Normal", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					positionFond.y = 70 ;
+					texte = TTF_RenderText_Blended(police, "Mur", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					positionFond.y = 120 ;
+					texte = TTF_RenderText_Blended(police, "Hard Mode", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
 					SDL_Flip(ecran2);
 					SDL_FreeSurface(ecran2);
-					acc = 0;
+					positionFond.y = 170 ;
+					texte = TTF_RenderText_Blended(police, "Hard Mode + Mur", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					SDL_Flip(ecran2);
+					SDL_FreeSurface(ecran2);
+					positionFond.y = 210 ;
+					texte = TTF_RenderText_Blended(police, "Return Back", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					SDL_Flip(ecran2);
+					SDL_FreeSurface(ecran2);	
+            				acc = 4;
 					}
+           		   	 	if((event.button.y)<120 && (event.button.y)>70) {
+            				SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
+					SDL_FreeSurface(ecran2);
+					positionFond.x = 0;
+					positionFond.y = 0 ;
+					fond = IMG_Load("echec.jpg");
+					SDL_BlitSurface(fond, NULL, ecran2, &positionFond);
+					SDL_FreeSurface(fond);
+					positionFond.x = 50;
+					positionFond.y = 20 ;
+					texte = TTF_RenderText_Blended(police, "Normal", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					positionFond.y = 70 ;
+					texte = TTF_RenderText_Blended(police, "Mur", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					positionFond.y = 120 ;
+					texte = TTF_RenderText_Blended(police, "Hard Mode", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					SDL_Flip(ecran2);
+					SDL_FreeSurface(ecran2);
+					positionFond.y = 170 ;
+					texte = TTF_RenderText_Blended(police, "Hard Mode + Mur", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					SDL_Flip(ecran2);
+					SDL_FreeSurface(ecran2);
+					positionFond.y = 210 ;
+					texte = TTF_RenderText_Blended(police, "Return Back", couleurNoire);
+					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+					SDL_Flip(ecran2);
+					SDL_FreeSurface(ecran2);
+					acc = 4;
+					nbrjoueur = 4;	
+					}if((event.button.y)<170 && (event.button.y)>120) {
+					SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
+					SDL_FreeSurface(ecran2);
+						positionFond.x = 0;
+						positionFond.y = 0 ;
+						fond = IMG_Load("echec.jpg");
+						SDL_BlitSurface(fond, NULL, ecran2, &positionFond);
+						SDL_FreeSurface(fond);
+						positionFond.x = 100;
+						positionFond.y = 20 ;
+						texte = TTF_RenderText_Blended(police, "New game vs player", couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+						positionFond.x = 100;
+						positionFond.y = 70 ;
+						texte = TTF_RenderText_Blended(police, "New game vs IA", couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+						positionFond.x = 100;
+						positionFond.y = 120 ;
+						texte = TTF_RenderText_Blended(police, "Quit", couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+						SDL_Flip(ecran2);
+						SDL_FreeSurface(ecran2);
+						acc = 0;
+					}
+
+
 				}
 	 			 default:
 	      			 break;
@@ -492,19 +590,29 @@ TTF_Quit();
 SDL_Quit();
 
 if(acc == 2) {
-createGrid(grid, 2);
-fillGrid(grid, 2);
+createGrid(grid, nbrjoueur);
+fillGrid(grid, nbrjoueur);
 SDL1(grid,nbrjoueur,IA);
 }
 if(acc == 3) {
-createGrid(grid, 4);
-fillGrid(grid, 4);
+createGrid(grid, nbrjoueur);
+fillGridHM(grid, nbrjoueur);
+SDL1(grid,nbrjoueur,IA);
+}
+if(acc == 5) {
+createGrid(grid, nbrjoueur);
+fillGrid(grid, nbrjoueur);
+SDL1(grid,nbrjoueur,IA);
+}
+if(acc == 6) {
+createGrid(grid, nbrjoueur);
+fillGridHM(grid, nbrjoueur);
 SDL1(grid,nbrjoueur,IA);
 }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-//////AFFICHAGE JEU//////////////////////////////////////////////////////////////////////////////////
+//////AFFICHAGE JEU////////////////////////////////////////////////////////////////////////////////// 
 
 void SDL1(dalle grid[10][10],int nbrjoueur,int IA){
 
@@ -515,7 +623,7 @@ SDL_Rect positiontext;
 SDL_Rect positionCurseur;
 SDL_Event event;
 TTF_Font *police = NULL;
-SDL_Color couleurNoire = {255, 255, 255};
+SDL_Color couleurNoire = {255, 0, 0};
 SDL_Color couleurrouge = {255, 0, 0};
 int continuer = 1;
 int x;
@@ -527,8 +635,7 @@ int yp;
 char nbr[4];
 char gg[2];
 int touri = 1;
-sprintf( nbr, "%d", touri );
-char tour[15] = "Turn number ";   
+sprintf( nbr, "%d", touri );   
 int fenetre = 0;
 evalCoup* test;
 Noeud* p = (Noeud*) malloc(sizeof(Noeud));
@@ -548,12 +655,19 @@ positiontext.x = 700;
 positiontext.y = 10;
 texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
 SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-positiontext.x = 700;
+positiontext.x = 710;
 positiontext.y = 100;
-texte = TTF_RenderText_Blended(police, "Turn number 1", couleurNoire);
+SDL_Surface *imageDeFond99 = IMG_Load("tour.png");
+SDL_BlitSurface(imageDeFond99, NULL, ecran, &positiontext);
+SDL_FreeSurface(imageDeFond99);
+positiontext.x = 790;
+positiontext.y = 150;
+police = TTF_OpenFont("b.ttf", 45);
+texte = TTF_RenderText_Blended(police, nbr, couleurrouge);
 SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 positiontext.x = 700;
 positiontext.y = 10;
+police = TTF_OpenFont("a.ttf", 45);
 SDL_Flip(ecran);
 SDL_FreeSurface(texte);
 
@@ -578,18 +692,19 @@ SDL_FreeSurface(texte);
 	texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
 	SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 	SDL_FreeSurface(texte);
-	positiontext.x = 700;
+	positiontext.x = 710;
 	positiontext.y = 100;
-	texte = TTF_RenderText_Blended(police, tour, couleurrouge);
-	SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-	SDL_FreeSurface(texte);
-	positiontext.x = 900;
-	positiontext.y = 100;
+	SDL_Surface *imageDeFond99 = IMG_Load("tour.png");
+	SDL_BlitSurface(imageDeFond99, NULL, ecran, &positiontext);
+	SDL_FreeSurface(imageDeFond99);
+	positiontext.x = 790;
+	positiontext.y = 150;
+	police = TTF_OpenFont("b.ttf", 45);
 	texte = TTF_RenderText_Blended(police, nbr, couleurrouge);
 	SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-	SDL_FreeSurface(texte);
 	positiontext.x = 700;
 	positiontext.y = 10;
+	police = TTF_OpenFont("a.ttf", 45);
 	SDL_Flip(ecran);
 	acc=1;
 	}
@@ -622,7 +737,7 @@ SDL_FreeSurface(texte);
 						continuer = 0;
 					}else if ((event.button.y)<700 && (event.button.y)>0 && (event.button.x)<700 && (event.button.x)>0 ) {
 					if( (acc == 1) ) {
-						if ((grid[y][x].joueur == tourj) /*&& (pathTest(p,grid) == 0)*/ && (condWinHM(grid,nbrjoueur) == 0) && (antiJeuTest(grid,touri) == 0)) {
+						if ((grid[y][x].joueur == tourj) && (pat(p) == 0) && (condWin(grid,nbrjoueur) == 0) && (antiJeuTest(grid,touri) == 0)) {
 							
                            	 			xp = x;
 							yp = y;	
@@ -635,18 +750,20 @@ SDL_FreeSurface(texte);
 				 			texte = TTF_RenderText_Blended(police, "click where you want to move !", couleurNoire);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							SDL_FreeSurface(texte);
-							positiontext.x = 700;
+							positiontext.x = 710;
 							positiontext.y = 100;
-							texte = TTF_RenderText_Blended(police, tour, couleurrouge);
-							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-							SDL_FreeSurface(texte);
-							positiontext.x = 900;
-							positiontext.y = 100;
+							SDL_Surface *imageDeFond99 = IMG_Load("tour.png");;
+							SDL_BlitSurface(imageDeFond99, NULL, ecran, &positiontext);
+							SDL_FreeSurface(imageDeFond99);
+							positiontext.x = 790;
+							positiontext.y = 150;
+							police = TTF_OpenFont("b.ttf", 45);
 							texte = TTF_RenderText_Blended(police, nbr, couleurrouge);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							SDL_FreeSurface(texte);
 							positiontext.x = 700;
 							positiontext.y = 10;
+							police = TTF_OpenFont("a.ttf", 45);
 							caze = SDL_LoadBMP("caze.bmp");
 							SDL_SetAlpha(caze, SDL_SRCALPHA, 50);
 							SDL_BlitSurface(caze, NULL, ecran, &positionCurseur);
@@ -670,19 +787,21 @@ SDL_FreeSurface(texte);
 							texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
 	    						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							SDL_FreeSurface(texte);
-							positiontext.x = 700;
+							positiontext.x = 710;
 							positiontext.y = 100;
-							texte = TTF_RenderText_Blended(police, tour, couleurrouge);
-							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-							SDL_FreeSurface(texte);
-							positiontext.x = 900;
-							positiontext.y = 100;
+							SDL_Surface *imageDeFond99 = IMG_Load("tour.png");;
+							SDL_BlitSurface(imageDeFond99, NULL, ecran, &positiontext);
+							SDL_FreeSurface(imageDeFond99);
+							positiontext.x = 790;
+							positiontext.y = 150;
+							police = TTF_OpenFont("b.ttf", 45);
 							texte = TTF_RenderText_Blended(police, nbr, couleurrouge);
 							SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 							SDL_FreeSurface(texte);
 							positiontext.x = 700;
 							positiontext.y = 10;
-							/*if  (pathTest(p,grid) != 0){					
+							police = TTF_OpenFont("a.ttf", 45);
+							if  (pat(p) != 0){					
 								texte = TTF_RenderText_Blended(police, "PAT !! ", couleurNoire);
 								positiontext.x = 400;
 								positiontext.y = 400;
@@ -691,7 +810,7 @@ SDL_FreeSurface(texte);
 								positiontext.y = 10;
 								SDL_FreeSurface(texte);
 								SDL_Flip(ecran);
-							}*/
+							}
 							if  (antiJeuTest(grid,touri) == 1){					
 								texte = TTF_RenderText_Blended(police, "ANTI-GAME !! ", couleurNoire);
 								positiontext.x = 400;
@@ -703,7 +822,7 @@ SDL_FreeSurface(texte);
 								SDL_Flip(ecran);
 							}
 							if  (condWin(grid,nbrjoueur) != 0){
-								sprintf( gg, "%d", condWinHM(grid,nbrjoueur));					
+								sprintf( gg, "%d", condWin(grid,nbrjoueur));					
 								texte = TTF_RenderText_Blended(police, gg , couleurNoire);
 								positiontext.x = 400;
 								positiontext.y = 400;
@@ -764,8 +883,8 @@ SDL_FreeSurface(texte);
 									positiontext.y = 10;
 									SDL_FreeSurface(texte);
 									SDL_Flip(ecran);
-								} else if  (condWin(grid,nbrjoueur) != 0){
-									sprintf( gg, "%d", condWinHM(grid,nbrjoueur));					
+								}  if  (condWin(grid,nbrjoueur) != 0){
+									sprintf( gg, "%d", condWin(grid,nbrjoueur));					
 									texte = TTF_RenderText_Blended(police, gg , couleurNoire);
 									positiontext.x = 400;
 									positiontext.y = 400;
@@ -782,7 +901,7 @@ SDL_FreeSurface(texte);
 									positiontext.y = 10;
 									SDL_FreeSurface(texte);
 									SDL_Flip(ecran);
-								}else if  (antiJeuTest(grid,touri) == 1){					
+								} if  (antiJeuTest(grid,touri) == 1){					
 									texte = TTF_RenderText_Blended(police, "ANTI-GAME !! ", couleurNoire);
 									positiontext.x = 400;
 									positiontext.y = 400;
@@ -809,8 +928,8 @@ SDL_FreeSurface(texte);
 									positiontext.y = 10;
 									SDL_FreeSurface(texte);
 									SDL_Flip(ecran);
-								} else if  (condWin(grid,nbrjoueur) != 0){
-									sprintf( gg, "%d", condWinHM(grid,nbrjoueur));					
+								}  if  (condWin(grid,nbrjoueur) != 0){
+									sprintf( gg, "%d", condWin(grid,nbrjoueur));					
 									texte = TTF_RenderText_Blended(police, gg , couleurNoire);
 									positiontext.x = 400;
 									positiontext.y = 400;
@@ -827,7 +946,7 @@ SDL_FreeSurface(texte);
 									positiontext.y = 10;
 									SDL_FreeSurface(texte);
 									SDL_Flip(ecran);
-								}else if  (antiJeuTest(grid,touri) == 1){					
+								} if  (antiJeuTest(grid,touri) == 1){					
 									texte = TTF_RenderText_Blended(police, "ANTI-GAME !! ", couleurNoire);
 									positiontext.x = 400;
 									positiontext.y = 400;
@@ -847,16 +966,18 @@ SDL_FreeSurface(texte);
 						texte = TTF_RenderText_Blended(police, "click on the piece you want to move !", couleurNoire);
     						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 						SDL_FreeSurface(texte);
-						positiontext.x = 700;
+						positiontext.x = 710;
 						positiontext.y = 100;
-						texte = TTF_RenderText_Blended(police, tour, couleurrouge);
-						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
-						SDL_FreeSurface(texte);
-						positiontext.x = 900;
-						positiontext.y = 100;
+						SDL_Surface *imageDeFond99 = IMG_Load("tour.png");;
+						SDL_BlitSurface(imageDeFond99, NULL, ecran, &positiontext);
+						SDL_FreeSurface(imageDeFond99);
+						positiontext.x = 790;
+						positiontext.y = 150;
+						police = TTF_OpenFont("b.ttf", 45);
 						texte = TTF_RenderText_Blended(police, nbr, couleurrouge);
 						SDL_BlitSurface(texte, NULL, ecran, &positiontext);
 						SDL_FreeSurface(texte);
+						police = TTF_OpenFont("a.ttf", 45);
 						positiontext.x = 700;
 						positiontext.y = 10;
 						
@@ -895,9 +1016,6 @@ SDL1(grid,nbrjoueur,IA);
 
 void turn(int tourj,SDL_Surface* ecran) {
 SDL_Surface *texte = NULL;
-TTF_Font *police = NULL;
-SDL_Color rouge = {255, 0, 0};
-police = TTF_OpenFont("a.ttf", 45);
 SDL_Rect positiontext;
 positiontext.x = 700;
 positiontext.y = 50;

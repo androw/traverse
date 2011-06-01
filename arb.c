@@ -47,6 +47,19 @@ int pathTest (Noeud* teteliste, dalle grid[10][10]) {
     return 0;
 }
 
+int pat(Noeud* teteliste) {
+	Noeud* l = teteliste;
+	while (l != NULL) {
+		if (l->acc >= 3) {
+			return 1;
+		}
+		else {
+			l = l->suivant;
+		}
+	}
+	return 0;
+}
+
 
 int condWin(dalle grid[10][10],int player) {
     

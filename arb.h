@@ -15,4 +15,5 @@ int pathTest (Noeud* teteliste, dalle grid[10][10]);
 int condWin(dalle grid[10][10],int player);
 int condWinHM(dalle grid[10][10],int player);
 int antiJeuTest(dalle grid[10][10],int tour);
+int pat(Noeud* teteliste);
 #endif
