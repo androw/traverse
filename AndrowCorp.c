@@ -46,6 +46,8 @@ evalCoup* addC(evalCoup* coups, int coup[4], int a);
 evalCoup* jouer(dalle g[10][10], int color);
 void copy(dalle grid[10][10], dalle r[10][10]);
 void deplacement (dalle grid[10][10], int x, int y, int xx, int yy);
+int abs(int x);
+int distance (dalle grille[10][10], int x,int y);
 
 void name(char answer[100])
 {
@@ -219,7 +221,7 @@ int evaluation(dalle grid[10][10], int color) {
 					acc++;
 					} 
 				} else if (grid[i][j].joueur == 2) {
-					acc = acc - (10 - distance(grid, i, j));
+					acc = acc - distance(grid, i, j);
 				}
 			}
 		}
@@ -227,7 +229,7 @@ int evaluation(dalle grid[10][10], int color) {
                 for (i = 0; i<10; i++) {
                         for (j=0; j<10; j++) {
                                 if (grid[i][j].joueur == 2) {
-                                        acc = acc + (10 - distance(grid, i, j));
+                                        acc = acc + distance(grid, i, j);
                                         if (i == 9){
                                         acc = acc - 10;
                                         }
