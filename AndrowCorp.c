@@ -1,6 +1,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+#include<math.h>
+#include<time.h>
 
 typedef struct evalCoup {
         int move[4];
@@ -48,6 +50,9 @@ void copy(dalle grid[10][10], dalle r[10][10]);
 void deplacement (dalle grid[10][10], int x, int y, int xx, int yy);
 int abs(int x);
 int distance (dalle grille[10][10], int x,int y);
+int maxx(dalle grid[10][10], int d, int alpha, int color);
+evalCoup* jouerx(dalle g[10][10], int color);
+int nexttotheend(dalle grid[10][10], int joueur) ;
 
 void name(char answer[100])
 {
@@ -60,9 +65,19 @@ void ply(char board[100], int color, int time, char answer[4])
 	adapt(board, grid);
 	evalCoup* coup = NULL;
 	if (color == 1) {
-	coup = jouer(grid, 1);
+		if(nexttotheend(grid, 1)) {
+			coup = jouerx(grid, 1);
+		}
+		else {
+			coup = jouer(grid, 1);
+		}
 	} else {
-	coup = jouer(grid, 2);
+		if(nexttotheend(grid, 2)) {
+                        coup = jouerx(grid, 2);
+                }
+                else{
+		coup = jouer(grid, 2);
+		}
         }
 	
 	//printf("%i %i %i %i\n", coup->move[0], coup->move[1], coup->move[2], coup->move[3]);
@@ -74,6 +89,38 @@ void ply(char board[100], int color, int time, char answer[4])
   	answer[3] = coup->move[2]+48;
 }
 
+
+int nexttotheend(dalle grid[10][10], int joueur) {
+int i;
+int j;
+int acc = 0;
+if (joueur == 1){	
+	for ( i=7; i<10; i++) {
+		for (j = 0; j<10; j++) {
+			if (grid[i][j].joueur == 1) {
+				acc++;
+			}
+		}
+	}
+}
+
+if (joueur == 2){
+        for ( i=0; i<3; i++) {
+                for (j = 0; j<10; j++) {
+                        if (grid[i][j].joueur == 2) {
+                                acc++;
+                        }
+                }
+        }
+}
+
+if (acc == 8) {
+        return 1;
+}else {
+return 0;}
+} 
+
+
 int abs(int x) {
 	if (x > 0) {
 		return x;
@@ -84,22 +131,71 @@ int abs(int x) {
 return x;
 }
 
+int min(int a, int b) {
+int i;
+	if (a < b) {
+		return a;
+	}
+	else if (a > b) {
+		return b;
+	}
+	else {
+		srand(time(NULL));
+		i = rand()%2;
+		if (i == 1) {
+			return a;
+		}
+		else {
+			return b;
+		}
+	}
+}
+		
+
 int distance (dalle grille[10][10], int x,int y) { // x les lignes et y les colonnes
-	int acc=0;
+	int acc = 0;
+	int acc2 = 0;
+	int acc3 = 0;
 	int i;
 	if (grille[0][2].ajoueur == grille[x][y].joueur) { //si jamais le pion veut arriver en haut
 		acc = x; //distance entre la ligne x du pion et la ligne 0 d'arrivee
-		for (i = 1;i < 9;i++) {
-			if (grille[0][i].joueur == 0) {
-				return (acc + abs( y - i)); //distance gauche-droite et inversement
-			}
+		if (grille[0][y].joueur == 0) { 
+				if (grille[0][y].joueur == 0 ) {
+					return acc;
+				}
+				else {
+					for(i=0;i<y;i++) {
+						if (grille[0][i].joueur == 0) {
+							acc2 = abs(y-i);
+						}
+					}
+					for(i=9;i>y;i--) {
+						if (grille[0][i].joueur == 0) {
+							acc3 = abs(y-i);
+						}
+					}
+				}
+			return acc + min(acc2,acc3);
 		}
-	} else {//versl e bas
-		acc = 9 - x; //distance entre la dernierel igne et la ligne du pion
-		for (i = 1;i < 9;i++) {
-			if (grille[9][i].joueur == 0) {
-				return (acc + abs( y - i));
-			}
+		else if (grille[9][2].ajoueur == grille[x][y].joueur) {
+		acc = 9 - x;
+		if (grille[9][y].joueur == 0) { 
+				if (grille[9][y].joueur == 0 ) {
+					return acc;
+				}
+				else {
+					for(i=0;i<y;i++) {
+						if (grille[9][i].joueur == 0) {
+							acc2 = abs(y-i);
+						}
+					}
+					for(i=9;i>y;i--) {
+						if (grille[9][i].joueur == 0) {
+							acc3 = abs(y-i);
+						}
+					}
+				}
+			return acc + min(acc2,acc3);
 		}
 	}
 return -1; //si jamais il n'y a pas de case libre
@@ -208,39 +304,39 @@ int evaluation(dalle grid[10][10], int color) {
 	int j;
 	if (color == 1) {
 		for (i = 0; i<10; i++) {
-			for (j=0; j<10; j++) {
+			for (j=1; j<9; j++) {
 				if (grid[i][j].joueur == 1) {
-					acc = acc + distance(grid, i, j);;
-					if (i == 0){
-					acc = acc - 10;
-					}
+					acc = acc - distance(grid, i, j);;
 					if (i == 9) {
-					acc = acc + 20;
+						acc = acc+20;
 					}
-					if (j < 7 && j >= 3 && i < 5) {
-					acc++;
-					} 
+					if (i == 0) {
+						acc = acc - 10;
+					}
+					if (j > 3 && j<7 && i<5) {
+						acc = acc + 1;
+					}
 				} else if (grid[i][j].joueur == 2) {
-					acc = acc - distance(grid, i, j);
+					acc = acc + distance(grid, i, j);
 				}
 			}
 		}
 	} else  if (color == 2) {
                 for (i = 0; i<10; i++) {
-                        for (j=0; j<10; j++) {
+                        for (j=1; j<9; j++) {
                                 if (grid[i][j].joueur == 2) {
-                                        acc = acc + distance(grid, i, j);
-                                        if (i == 9){
-                                        acc = acc - 10;
-                                        }
-                                        if (i == 0) {
-                                        acc = acc + 20;
-                                        }
-					if (j < 7 && j >= 3 && i >= 5) {
-                                        acc++;
-                                        }
-                                } else if (grid[i][j].joueur == 1) {
                                         acc = acc - distance(grid, i, j);
+					if(i == 0) {
+                                                acc = acc+20;
+                                        }
+					if (i == 9) {
+                                                acc = acc - 10;
+                                        }
+					if (j > 3 && j<7 && i>5) {
+                                                acc = acc + 1;
+                                        }
+				} else if (grid[i][j].joueur == 1) {
+                                        acc = acc + distance(grid, i, j);
                                 }
                         }
                 }
@@ -263,7 +359,7 @@ evalCoup* coupPos(dalle grid[10][10], int player) {
                         	tab[1] = j; 
 				if (grid[i][j].joueur == player) {
 					for (ii = i+1; ii >= 0; ii--) {
-						for (jj = 0; jj < 10; jj++) {
+						for (jj = 1; jj < 9; jj++) {
 							if (verif(grid, i, j, ii, jj)) {
                                                 		tab[2] = ii;
                                                 		tab[3] = jj;
@@ -282,7 +378,7 @@ evalCoup* coupPos(dalle grid[10][10], int player) {
                                 tab[1] = j;
                                 if (grid[i][j].joueur == player) {
                                         for (ii = i-1; ii <10; ii++) {
-                                                for (jj = 0; jj < 10; jj++) {
+                                                for (jj = 1; jj < 9; jj++) {
                                                         if (verif(grid, i, j, ii, jj)) {
                                                                 tab[2] = ii;
                                                                 tab[3] = jj;
@@ -339,6 +435,29 @@ int minmax(dalle grid[10][10], int d, int alpha, int beta, int evalMax, int colo
 	}
 }
 
+int maxx(dalle grid[10][10], int d, int alpha, int color) {
+        if (d == 0 || victoire(grid) || defaite(grid)) {
+                return evaluation(grid, color);
+	 }else {
+                evalCoup* moves = NULL;
+
+                        alpha = -999;
+			int beta = 160;
+                        moves = coupPos(grid, color);
+                while (moves != NULL) {
+                        dalle ngrid[10][10];
+                    	copy(grid, ngrid);
+                    	deplacement(ngrid, moves->move[0], moves->move[1], moves->move[2], moves->move[3]);
+                        alpha = max(alpha, maxx(ngrid, d-1, alpha, color));
+                        if (alpha >= beta) {
+                                return alpha;
+                		moves = moves->next;
+                	}
+                	return alpha;
+		}
+        }
+}
+
 int min(int a, int b) {
 	if (a > b) {
 		return b;
@@ -379,12 +498,28 @@ evalCoup* jouer(dalle g[10][10], int color) {
 			dalle ngrid[10][10];
             		copy(g, ngrid);
             		deplacement(ngrid, moves->move[0], moves->move[1], moves->move[2], moves->move[3]);
-			coups = addC(coups, moves->move, minmax (ngrid, 2, -999, 999, 0, color));
+			coups = addC(coups, moves->move, minmax (ngrid, 1, -999, 999, 0, color));
 			moves = moves->next;
 			
 		}
 		return cMax(coups);
 }
+
+evalCoup* jouerx(dalle g[10][10], int color) {
+                evalCoup* moves = NULL;
+                evalCoup* coups = NULL;
+                moves = coupPos(g, color);
+                while (moves != NULL) {
+                        dalle ngrid[10][10];
+                        copy(g, ngrid);
+                        deplacement(ngrid, moves->move[0], moves->move[1], moves->move[2], moves->move[3]);
+                        coups = addC(coups, moves->move, maxx(ngrid, 15, -999, color));
+                        moves = moves->next;
+
+                }
+                return cMax(coups);
+}
+
 
 evalCoup* addC(evalCoup* coups, int coup[4], int a) {
 	evalCoup* n = (evalCoup*) malloc(sizeof(evalCoup));
