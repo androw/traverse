@@ -52,7 +52,8 @@ int abs(int x);
 int distance (dalle grille[10][10], int x,int y);
 int maxx(dalle grid[10][10], int d, int alpha, int color);
 evalCoup* jouerx(dalle g[10][10], int color);
-int nexttotheend(dalle grid[10][10], int joueur) ;
+int nexttotheend(dalle grid[10][10], int joueur);
+int minr(int a, int b);
 
 void name(char answer[100])
 {
@@ -73,14 +74,13 @@ void ply(char board[100], int color, int time, char answer[4])
 		}
 	} else {
 		if(nexttotheend(grid, 2)) {
-                        coup = jouerx(grid, 2);
-                }
-                else{
+                coup = jouerx(grid, 2);
+        }
+        else{
 		coup = jouer(grid, 2);
 		}
-        }
+    }
 	
-	//printf("%i %i %i %i\n", coup->move[0], coup->move[1], coup->move[2], coup->move[3]);
 	
 
   	answer[0] = coup->move[1]+97;
@@ -131,7 +131,7 @@ int abs(int x) {
 return x;
 }
 
-int min(int a, int b) {
+int minr(int a, int b) {
 int i;
 	if (a < b) {
 		return a;
@@ -175,7 +175,7 @@ int distance (dalle grille[10][10], int x,int y) { // x les lignes et y les colo
 						}
 					}
 				}
-			return acc + min(acc2,acc3);
+			return acc + minr(acc2,acc3);
 		}
 		else if (grille[9][2].ajoueur == grille[x][y].joueur) {
 		acc = 9 - x;
@@ -195,9 +195,10 @@ int distance (dalle grille[10][10], int x,int y) { // x les lignes et y les colo
 						}
 					}
 				}
-			return acc + min(acc2,acc3);
+			return acc + minr(acc2,acc3);
 		}
 	}
+}
 return -1; //si jamais il n'y a pas de case libre
 }			
 			 
