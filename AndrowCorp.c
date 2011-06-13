@@ -402,13 +402,17 @@ int minmax(dalle grid[10][10], int d, int alpha, int beta, int evalMax, int colo
 		
 		if (evalMax) {
 			alpha = -999;
-			moves = coupPos(grid, color);
+			if (color == 2) {
+			moves = coupPos(grid, 2);
+			} else {
+			moves = coupPos(grid, 1);
+			}
 		} else {
 			beta = +999;
 			if (color == 2) {
 			moves = coupPos(grid, 1);
 			} else {
-			 moves = coupPos(grid, 2);
+			moves = coupPos(grid, 2);
 			}
 		}
 		while (moves != NULL) {
