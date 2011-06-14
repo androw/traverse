@@ -403,7 +403,6 @@ int minmax(dalle grid[10][10], int d, int alpha, int beta, int evalMax, int colo
 		if (evalMax) {
 			alpha = -999;
 			moves = coupPos(grid, color);
-			}
 		} else {
 			beta = +999;
 			if (color == 2) {
@@ -478,6 +477,7 @@ int max(int a, int b) {
 
 int victoire(dalle g[10][10]) {
 	if ((g[9][1].joueur == 2) && (g[9][2].joueur == 2) && (g[9][3].joueur == 2) && (g[9][4].joueur == 2) && (g[9][5].joueur == 2) &&(g[9][6].joueur == 2) &&(g[9][7].joueur == 2) &&(g[9][8].joueur == 2)) {
+		printf("OOoooOOoooooooo*****''VICTOIRE''****oooooooooooOOooooOO");
 		return 1;
 	} else {
 		return 0;
