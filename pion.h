@@ -10,7 +10,7 @@ enum PION {
 
 
 
-typedef struct {
+typedef struct pion{
 	enum PION type;
 	int left;
 	int right;

@@ -9,9 +9,7 @@
 int main(int argc, char *argv[])
 {
 dalle grid[10][10];
-createGrid(grid,4);
-fillGrid(grid, 4);
-SDL1(grid);
+SDL2(grid);
 return EXIT_SUCCESS;
 }
 
