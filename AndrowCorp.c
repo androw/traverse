@@ -415,7 +415,7 @@ int minmax(dalle grid[10][10], int d, int alpha, int beta, int evalMax, int colo
 			dalle ngrid[10][10];
 	            copy(grid, ngrid);
         	    deplacement(ngrid, moves->move[0], moves->move[1], moves->move[2], moves->move[3]);
-            if (evalMax) {
+            		if (evalMax) {
 				alpha = max(alpha, minmax(ngrid, d-1, alpha, beta, 0, color));
 				if (alpha >= beta) {
 					return alpha;
@@ -496,13 +496,15 @@ evalCoup* jouer(dalle g[10][10], int color) {
 		evalCoup* moves = NULL;
 		evalCoup* coups = NULL;
 		moves = coupPos(g, color);
+		int alpha = -999;
+		int beta = 999;
 		while (moves != NULL) {
 			dalle ngrid[10][10];
             		copy(g, ngrid);
             		deplacement(ngrid, moves->move[0], moves->move[1], moves->move[2], moves->move[3]);
-			coups = addC(coups, moves->move, minmax (ngrid, 1, -999, 999, 0, color));
+			alpha = max(alpha, minmax (ngrid, 1, alpha, beta, 0, color); 
+			coups = addC(coups, moves->move, alpha);
 			moves = moves->next;
-			
 		}
 		return cMax(coups);
 }
@@ -511,13 +513,14 @@ evalCoup* jouerx(dalle g[10][10], int color) {
                 evalCoup* moves = NULL;
                 evalCoup* coups = NULL;
                 moves = coupPos(g, color);
+		int alpha = -999;
                 while (moves != NULL) {
                         dalle ngrid[10][10];
                         copy(g, ngrid);
                         deplacement(ngrid, moves->move[0], moves->move[1], moves->move[2], moves->move[3]);
-                        coups = addC(coups, moves->move, maxx(ngrid, 15, -999, color));
+                        alpha = max(alpha, maxx(ngrid, 15, -999, color));
+			coups = addC(coups, moves->move, alpha);
                         moves = moves->next;
-
                 }
                 return cMax(coups);
 }
