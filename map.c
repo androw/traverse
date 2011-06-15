@@ -361,7 +361,6 @@ int HM = 0;
 SDL_Rect positionFond;
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 TTF_Init();
-
 ecran2 = SDL_SetVideoMode(500, 335, 32,  SDL_HWSURFACE |SDL_DOUBLEBUF);
 police = TTF_OpenFont("a.ttf", 25);
 positionFond.x = 0;
@@ -381,7 +380,6 @@ positionFond.x = 100;
 positionFond.y = 120 ;
 texte = TTF_RenderText_Blended(police, "Quit", couleurNoire);
 SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
-
 SDL_FreeSurface(ecran2);
 positionFond.x = 100;
 positionFond.y = 170 ;
@@ -409,9 +407,8 @@ SDL_WaitEvent(&event);
             			}
 		case SDL_MOUSEBUTTONUP:
         		if (event.button.button == SDL_BUTTON_LEFT && acc == 0) {
-					 
-           		   	 if((event.button.y)<70 && (event.button.y)>20) {
-					SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
+					if((event.button.y)<70 && (event.button.y)>20) { 
+           		   	 SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
 					SDL_FreeSurface(ecran2);	
 					positionFond.x = 0;
 					positionFond.y = 0 ;
@@ -437,7 +434,7 @@ SDL_WaitEvent(&event);
 					
 					}
            		   	 	else if((event.button.y)<120 && (event.button.y)>70) {
-					SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
+            				SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
 					SDL_FreeSurface(ecran2);
 					positionFond.x = 0;
 					positionFond.y = 0 ;
@@ -841,6 +838,7 @@ SDL_WaitEvent(&event);
 					SDL_Flip(ecran2);
 					SDL_FreeSurface(ecran2);	
             				acc = 4;
+					nbrjoueur = 2;
 					}
            		   	 	if((event.button.y)<120 && (event.button.y)>70) {
             				SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
@@ -904,6 +902,7 @@ SDL_WaitEvent(&event);
 						SDL_Flip(ecran2);
 						acc = 0;
 					}
+					
 
 
 				}
