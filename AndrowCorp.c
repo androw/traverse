@@ -502,7 +502,7 @@ evalCoup* jouer(dalle g[10][10], int color) {
 			dalle ngrid[10][10];
             		copy(g, ngrid);
             		deplacement(ngrid, moves->move[0], moves->move[1], moves->move[2], moves->move[3]);
-			alpha = max(alpha, minmax (ngrid, 1, alpha, beta, 0, color); 
+			alpha = max(alpha, minmax (ngrid, 1, alpha, beta, 0, color)); 
 			coups = addC(coups, moves->move, alpha);
 			moves = moves->next;
 		}
