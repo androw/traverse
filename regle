@@ -1,0 +1,23 @@
+Le but du jeu est d'emmener tout vos pions sur la ligne d'arrivée avant les adversaires.
+Votre ligne d'arrivée se situe à l'opposé de votre ligne de départ.
+Vous ne pouvez être qu'un seul sur la même case et il est impossible de stationner dans les bordures du tableau (excepté votre ligne d'arrivée).
+Les déplacements possibles sont :
+- Rond : peut se déplacer dans chaque direction (horizontale, verticale et diagonale)
+- Carré : peut se déplacer sur les lignes verticale et horizontale
+- Losange : peut se déplacer sur les diagonales
+- Triangle : peut se déplacer sur les diagonales s'il se déplace vers la ligne d'arrivée et en arrière  vers sa ligne de départ
+Les déplacements sont d'une seule case. Vous pouvez sauter par dessus les autres pions et cumuler les sauts selon le modèle des dames.
+Attention, si au bout du 30ème tour il vous reste un pion dans votre ligne de départ, vous perdez la partie.
+De plus, si une même situation se répète 3 fois, une égalité est déclarée.
+Pour déplacer vos pions, il suffit de cliquer sur le pion de votre choix (si le clic est correct, la case sera en sur-brillance) et de cliquer une seconde fois sur l'endroit d'arrivée. Si le mouvement n'est pas valide, un  message d'erreur s'affichera et il vous sera possible de recommencer.
+
+Différents modes de jeu vous sont proposés :
+
+-Player VS IA : Vous permet de jouer seul contre un joueur géré par l'ordinateur.
+-Player VS Player : Ce mode de jeu vous permet d'affronter un ou 3 amis dans une partie où vous pouvez régler quelques options pour varier les situations de jeu.
+
+Les différents modes de jeu en joueur contre joueur sont les suivants :
+-Hard mode : vous impose de placer vos pions dans la même disposition que sur la ligne de départ (attention, deux pièces de même nature peuvent être échangées).
+-Mur : Des murs sont disposés aléatoirement sur la grille, vous ne pouvez pas les franchir ou sauter par dessus.
+
+Bonne partie !
