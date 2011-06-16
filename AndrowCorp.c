@@ -326,7 +326,7 @@ int evaluation(dalle grid[10][10], int color) {
 				if ((grid[i][j].pion->type == TRIANGLE) && (i == 9) && (j != 1) && (j != 9) && (((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)) || ((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)))) {
 						acc = acc - 30;
 					}
-				if ((grid[i][j].pion->type == LOSANGE) && (i == 9) && (j != 1) && (j != 9) && (((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 1)) || ((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)))) {
+				if ((grid[i][j].pion->type == LOSANGE) && (i == 9) && (j != 1) && (j != 9) && (((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)) || ((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)))) {
 						acc = acc - 30;
 					}
 				if ((grid[i][j].pion->type == TRIANGLE) && (i == 9)) {

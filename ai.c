@@ -21,8 +21,9 @@ int evaluation(dalle grid[10][10]) {
 	int j;
 	for (i = 0; i<10; i++) {
 		for (j = 1; j<9; j++) {
+			if (grid[i][j].joueur == 2) {
 			acc = acc - (distance(grid, i, j));
-				if (grid[i][j].joueur == 2) {
+				
 					acc = acc - (nbrcasevidearriver(grid,2));
 					if(victoire(grid)) {
 						acc = acc + 3;
@@ -34,16 +35,16 @@ int evaluation(dalle grid[10][10]) {
 				if ((grid[i][j].pion->type == LOSANGE) && (i == 9)) {
 						acc = acc + 35;
 					}
-				if ((grid[i][j].pion->type == LOSANGE) && (i == 8) && (grid[9][j-1].joueur == 2 || grid[9][j+1].joueur == 2)) {
+				if ((grid[i][j].pion->type == LOSANGE) && (i == 8) && (grid[9][j-1].joueur == 1 || grid[9][j+1].joueur == 1)) {
 						acc = acc - 30;
 					}
-				if ((grid[i][j].pion->type == TRIANGLE) && (i == 8) && (grid[9][j-1].joueur == 2 || grid[9][j+1].joueur == 2)) {
+				if ((grid[i][j].pion->type == TRIANGLE) && (i == 8) && (grid[9][j-1].joueur == 1 || grid[9][j+1].joueur == 1)) {
 						acc = acc - 1000;
 					}
-				if ((grid[i][j].pion->type == TRIANGLE) && (i == 9) && (j != 1) && (j != 9) && (((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)) || ((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)))) {
+				if ((grid[i][j].pion->type == TRIANGLE) && (i == 9) && (j != 1) && (j != 9) && (((grid[8][j-1].joueur == 1) || (grid[8][j+1].joueur == 1)) || ((grid[8][j-1].joueur == 1) || (grid[8][j+1].joueur == 1)))) {
 						acc = acc - 30;
 					}
-				if ((grid[i][j].pion->type == LOSANGE) && (i == 9) && (j != 1) && (j != 9) && (((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 1)) || ((grid[8][j-1].joueur == 2) || (grid[8][j+1].joueur == 2)))) {
+				if ((grid[i][j].pion->type == LOSANGE) && (i == 9) && (j != 1) && (j != 9) && (((grid[8][j-1].joueur == 1) || (grid[8][j+1].joueur == 1)) || ((grid[8][j-1].joueur == 1) || (grid[8][j+1].joueur == 1)))) {
 						acc = acc - 30;
 					}
 				if ((grid[i][j].pion->type == TRIANGLE) && (i == 9)) {
