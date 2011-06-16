@@ -156,7 +156,7 @@ int i;
 int nbrcasevidearriver(dalle grid[10][10], int joueur) {
 int j;
 int acc = 0;
-if (joueur == 1){	
+if (joueur == 2){	
 		for (j = 1; j<9; j++) {
 			if (grid[0][j].joueur == 0) {
 				acc++;
