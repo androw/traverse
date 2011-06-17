@@ -1,5 +1,5 @@
 CFLAGS=-lSDLmain -lSDL -lSDL_ttf -lSDL_image -Wall 
-EXEC=main
+EXEC=traveisti
 
 all: main.c map.o pion.o dep.o arb.o ai.o
 	gcc $(CFLAGS) main.c map.o pion.o dep.o arb.o ai.o -o $(EXEC)

@@ -24,7 +24,9 @@ int max(int a, int b);
 int min(int a, int b);
 int defaite(dalle g[10][10]);
 int victoire(dalle g[10][10]);
-evalCoup* jouer(dalle g[10][10]);
+evalCoup* jouer(dalle g[10][10], int pro);
 evalCoup* addC(evalCoup* coups, int coup[4], int a);
 evalCoup* cMax(evalCoup* coups);
+int distance (dalle grille[10][10], int x,int y);
+int nbrcasevidearriver(dalle grid[10][10], int joueur);
 #endif
