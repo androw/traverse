@@ -415,16 +415,16 @@ SDL_WaitEvent(&event);
 					fond = IMG_Load("echec.jpg");
 					SDL_BlitSurface(fond, NULL, ecran2, &positionFond);
 					SDL_FreeSurface(fond);
-					positionFond.x = 100;
+					positionFond.x = 20;
 					positionFond.y = 20 ;
 					texte = TTF_RenderText_Blended(police, "2 Players", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
-					positionFond.x = 100;
+					positionFond.x = 20;
 					positionFond.y = 70 ;
 					texte = TTF_RenderText_Blended(police, "4 Players", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
-					positionFond.x = 100;
-					positionFond.y = 120 ;
+					positionFond.x = 20;
+					positionFond.y = 210 ;
 					texte = TTF_RenderText_Blended(police, "Return Back", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
 					SDL_FreeSurface(ecran2);
@@ -448,16 +448,6 @@ SDL_WaitEvent(&event);
 					positionFond.y = 70 ;
 					texte = TTF_RenderText_Blended(police, "Mur", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
-					positionFond.y = 120 ;
-					texte = TTF_RenderText_Blended(police, "Hard Mode", couleurNoire);
-					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
-					SDL_Flip(ecran2);
-					SDL_FreeSurface(ecran2);
-					positionFond.y = 170 ;
-					texte = TTF_RenderText_Blended(police, "Hard Mode + Mur", couleurNoire);
-					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
-					SDL_Flip(ecran2);
-					SDL_FreeSurface(ecran2);
 					positionFond.y = 210 ;
 					texte = TTF_RenderText_Blended(police, "Return Back", couleurNoire);
 					SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
@@ -465,7 +455,7 @@ SDL_WaitEvent(&event);
 					SDL_FreeSurface(ecran2);
 					IA = 1;	
 					nbrjoueur = 2;
-            				acc = 4;
+            				acc = 23;
 					
 					
 					}
@@ -502,6 +492,47 @@ SDL_WaitEvent(&event);
 					SDL_FreeSurface(ecran2);
             				
 					acc = 10;
+					}
+				}
+					else if (event.button.button == SDL_BUTTON_LEFT && acc == 23) {
+					 
+           		   	 	if((event.button.y)<70 && (event.button.y)>20) {	
+            				acc = 2;
+					continuer = 0;
+					}
+           		   	 	if((event.button.y)<120 && (event.button.y)>70) {	
+            				acc = 3;
+					continuer = 0;
+					}
+           		   	 	if((event.button.y)<280 && (event.button.y)>210) {	
+					SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
+					SDL_FreeSurface(ecran2);
+						positionFond.x = 0;
+						positionFond.y = 0 ;
+						fond = IMG_Load("echec.jpg");
+						SDL_BlitSurface(fond, NULL, ecran2, &positionFond);
+						SDL_FreeSurface(fond);
+						positionFond.x = 100;
+						positionFond.y = 20 ;
+						texte = TTF_RenderText_Blended(police, "New game vs player", couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+						positionFond.x = 100;
+						positionFond.y = 70 ;
+						texte = TTF_RenderText_Blended(police, "New game vs IA", couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+						positionFond.x = 100;
+						positionFond.y = 120 ;
+						texte = TTF_RenderText_Blended(police, "Quit", couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+						
+						SDL_FreeSurface(ecran2);
+						positionFond.x = 100;
+						positionFond.y = 170 ;
+						texte = TTF_RenderText_Blended(police, "Aide", couleurNoire);
+						SDL_BlitSurface(texte, NULL, ecran2, &positionFond);
+						SDL_FreeSurface(ecran2);
+						SDL_Flip(ecran2);
+						acc = 0;
 					}
 				}
 	 			 
@@ -872,7 +903,7 @@ SDL_WaitEvent(&event);
 					SDL_FreeSurface(ecran2);
 					acc = 4;
 					nbrjoueur = 4;	
-					}if((event.button.y)<170 && (event.button.y)>120) {
+					}if((event.button.y)<250 && (event.button.y)>210) {
 					SDL_FillRect(ecran2, NULL, SDL_MapRGB(ecran2->format, 255, 255, 255));
 					SDL_FreeSurface(ecran2);
 						positionFond.x = 0;
