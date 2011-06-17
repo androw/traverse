@@ -1037,7 +1037,7 @@ SDL_FreeSurface(texte);
 
     while (continuer){
 	if (IA == 1 && tourj == 2) {
-		test = jouer(grid);
+		test = jouer(grid,1);
 		SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 0,0,0));
 		mvt(grid, test->move[0], test->move[1], test->move[2], test->move[3]); 
 		tourj++;
