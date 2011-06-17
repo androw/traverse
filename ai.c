@@ -1,3 +1,6 @@
+//Bot library
+
+
 #include "ai.h"
 
 Move* add(Move* list, int move[4]) {

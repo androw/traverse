@@ -1,3 +1,5 @@
+//Arbitre Library
+
 #include "arb.h"
 
 int pathTest (Noeud* teteliste, dalle grid[10][10]) {
